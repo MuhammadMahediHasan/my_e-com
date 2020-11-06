@@ -1,0 +1,57 @@
+body {
+    font-size: .8125rem;
+    font-weight: 600;
+    font-family: Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+    background-color: #26a69a;
+    color: #fff;
+}
+.nav-pills .nav-link {
+     border-radius: 0px;
+}
+.os-content {
+    padding: 0px !important;
+}
+.nav-link {
+    padding: .75rem 1.25rem;
+}
+.nav-sidebar .nav-item>.nav-link {
+     margin-bottom: 1px;
+}
+.nav-sidebar .nav-link>.right, .nav-sidebar .nav-link>p>.right {
+    top: 1.0rem;
+}
+[class*=sidebar-dark-] {
+    background-color: #263238;
+}
+.user-panel .info span {
+    color: #93a09e;
+}
+.user-panel img {
+    width: 2.3rem;
+}
+.user-panel .info {
+    padding: 0px 5px 5px 10px;
+}
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link {
+    padding-left: 52px;
+}
+.card-header {
+    padding: 1.00rem 1.25rem;
+}
+.card {
+    border: 1px solid transparent;
+    border-radius: 0px;
+}
+.pagination {
+    float: right;
+    margin-top: 10px;
+}
+.page-item.active .page-link {
+    background-color: #26a69a;
+    border-color: #26a69a;
+}
+.page-link {
+    color: #26a69a;
+}
