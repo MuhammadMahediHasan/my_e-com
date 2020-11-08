@@ -22,9 +22,9 @@ trait HelperTrait{
      */
     public function errorResponse($data, $msg) {
         return [
-            'status' => 'success',
+            'status' => '201',
             'msg' => $msg,
-            'data' => [$data, 200],
+            'data' => $data,
         ];
     }
 }

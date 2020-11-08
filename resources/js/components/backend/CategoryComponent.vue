@@ -11,7 +11,7 @@
                         </ol>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <button class="btn bg-gradient-info btn-flat text-right" data-toggle="modal" @click="Add()" data-target="#myModal">Add Category
+                        <button class="btn bg-gradient-info btn-flat text-right btn-sm" data-toggle="modal" @click="Add()" data-target="#myModal">Add Category
                         </button>
                     </div>
 
@@ -33,8 +33,13 @@
                                             <span class="text-danger" v-if='$vuelidation.error("form.name")'>{{ $vuelidation.error('form.name') }}</span>
                                         </div>
                                         <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea class="form-control" v-model="form.description" placeholder="Description"></textarea>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Status</label>
                                             <select class="form-control" v-model="form.status">
+                                                <option value="">Select</option>
                                                 <option value="1">Active</option>
                                                 <option value="0">De-active</option>
                                             </select>
@@ -42,8 +47,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn bg-gradient-primary btn-flat" type="submit" :disabled="$vuelidation.errors()">Submit</button>
-                                        <button type="button" class="btn bg-gradient-secondary btn-flat" data-dismiss="modal">Close</button>
+                                        <button class="btn bg-gradient-primary btn-flat btn-sm" type="submit" :disabled="$vuelidation.errors()">Submit</button>
+                                        <button type="button" class="btn bg-gradient-secondary btn-flat btn-sm" data-dismiss="modal">Close</button>
                                     </div>
                                 </form>
                             </div>
@@ -135,6 +140,7 @@
             return {
                 form : {
                     name : '',
+                    description : '',
                     status : 1,
                 },
                 filter : {

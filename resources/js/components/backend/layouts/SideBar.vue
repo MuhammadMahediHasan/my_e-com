@@ -61,13 +61,13 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="pages/widgets.html" class="nav-link">
+                        <router-link to="/vendor" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Widgets
+                                Vendor
                                 <span class="right badge badge-danger">New</span>
                             </p>
-                        </a>
+                        </router-link>
                     </li>
                 </ul>
             </nav>

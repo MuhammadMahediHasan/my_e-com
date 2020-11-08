@@ -21,6 +21,7 @@ Route::prefix('api/')->group(function () {
     Route::resource('/category', App\Http\Controllers\CategoryController::class);
     Route::resource('/sub_category', App\Http\Controllers\SubCategoryController::class);
     Route::resource('/child_category', App\Http\Controllers\ChildCategoryController::class);
+    Route::resource('/vendor', App\Http\Controllers\VendorController::class);
 });
-Auth::routes(['register' => false]);
+Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

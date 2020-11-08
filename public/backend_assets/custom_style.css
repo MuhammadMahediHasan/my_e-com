@@ -55,3 +55,6 @@ body {
 .page-link {
     color: #26a69a;
 }
+.form-control {
+    font-family: inherit;
+}

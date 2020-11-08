@@ -15,10 +15,10 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $data = Category::where(function ($data) use ($request){
-            if($request->q){
+            if($request->q) {
                 $data->where('name', 'like', '%' . $request->q . '%');
             }
-        })->paginate($request->row);
+        })->where('type', 1)->paginate($request->row);
 
         $return_data = $this->successResponse($data, 'Data Retrived!');
         return response($return_data, 200);

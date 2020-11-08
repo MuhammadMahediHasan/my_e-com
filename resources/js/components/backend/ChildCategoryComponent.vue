@@ -11,7 +11,7 @@
                         </ol>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <button class="btn bg-gradient-info btn-flat text-right" data-toggle="modal" @click="Add()" data-target="#myModal">Add ChildCategory
+                        <button class="btn bg-gradient-info btn-flat text-right btn-sm" data-toggle="modal" @click="Add()" data-target="#myModal">Add ChildCategory
                         </button>
                     </div>
 
@@ -34,19 +34,19 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Category</label>
-                                            <select class="form-control" v-model="form.category_id">
+                                            <select class="form-control" v-model="form.sub_category_id">
                                                 <option value="">Select Category</option>
                                                 <option v-for="data_value in categoryData" :value="data_value.id">{{ data_value.name }}</option>
                                             </select>
-                                            <span class="text-danger" v-if='$vuelidation.error("form.category_id")'>{{ $vuelidation.error('form.category_id') }}</span>
+                                            <span class="text-danger" v-if='$vuelidation.error("form.sub_category_id")'>{{ $vuelidation.error('form.sub_category_id') }}</span>
                                         </div>
                                         <div class="form-group">
                                             <label>Sub Category</label>
-                                            <select class="form-control" v-model="form.sub_category_id">
+                                            <select class="form-control" v-model="form.child_category_id">
                                                 <option value="">Select Sub Category</option>
                                                 <option v-for="data_value in subCategoryData" :value="data_value.id">{{ data_value.name }}</option>
                                             </select>
-                                            <span class="text-danger" v-if='$vuelidation.error("form.sub_category_id")'>{{ $vuelidation.error('form.sub_category_id') }}</span>
+                                            <span class="text-danger" v-if='$vuelidation.error("form.child_category_id")'>{{ $vuelidation.error('form.child_category_id') }}</span>
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>
@@ -58,8 +58,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn bg-gradient-primary btn-flat" type="submit" :disabled="$vuelidation.errors()">Submit</button>
-                                        <button type="button" class="btn bg-gradient-secondary btn-flat" data-dismiss="modal">Close</button>
+                                        <button class="btn bg-gradient-primary btn-flat btn-sm" type="submit" :disabled="$vuelidation.errors()">Submit</button>
+                                        <button type="button" class="btn bg-gradient-secondary btn-flat btn-sm" data-dismiss="modal">Close</button>
                                     </div>
                                 </form>
                             </div>
@@ -115,8 +115,8 @@
                                     <tr v-for="(data_value, index) in child_categoryData.data">
                                         <td>{{ index+1 }}</td>
                                         <td>{{ data_value.name }}</td>
-                                        <td>{{ data_value.sub_category.category.name }}</td>
-                                        <td>{{ data_value.sub_category.name }}</td>
+                                        <td>{{ data_value.categories.name }}</td>
+                                        <td>{{ data_value.sub_categories.name }}</td>
                                         <td>{{ data_value.status == 1 ? 'Active' : 'De-active' }}</td>
                                         <td>
                                             <button class="btn btn-danger btn-sm" @click="Delete(index, data_value.id)">
@@ -133,6 +133,7 @@
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Category</th>
+                                        <th>Sub Category</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -156,9 +157,10 @@ export default {
         return {
             form : {
                 name : '',
-                category_id : '',
                 sub_category_id : '',
+                child_category_id : '',
                 status : 1,
+                type : 3,
             },
             filter : {
                 table_row : [10, 20, 30, 50],
@@ -180,7 +182,7 @@ export default {
         'filter.search': function (newVal, oldVal) {
             this.getData();
         },
-        'form.category_id': function (newVal, oldVal) {
+        'form.sub_category_id': function (newVal, oldVal) {
             this.getSubCategory(newVal);
         },
     },
@@ -190,11 +192,11 @@ export default {
                 name: {
                     required: true, msg : 'name field is required!'
                 },
-                category_id: {
-                    required: true, msg : 'category name field is required!'
-                },
                 sub_category_id: {
                     required: true, msg : 'sub category name field is required!'
+                },
+                child_category_id: {
+                    required: true, msg : 'child category name field is required!'
                 },
                 status: {
                     required: true, msg : 'status field is required!'
@@ -211,7 +213,8 @@ export default {
                 if (_this.edit_child_category === false) {
                     axios.post(_this.submit_url, _this.form)
                         .then((response) => {
-                            _this.child_categoryData.data.push(response.data.data);
+                            //_this.child_categoryData.data.push(response.data.data);
+                            this.getData();
                         })
                         .catch((error) => {
                             console.log(error);
@@ -220,9 +223,10 @@ export default {
                 if (_this.edit_child_category === true) {
                     axios.put(_this.submit_url, _this.form)
                         .then((response) => {
-                            _this.child_categoryData.data[_this.edit_index_no] = response.data.data;
+                            //_this.child_categoryData.data[_this.edit_index_no] = response.data.data;
                             //console.log( response.data.data);
                             //console.log( _this.child_categoryData.data[_this.edit_index_no] );
+                            this.getData();
                         })
                         .catch((error) => {
                             console.log(error);
@@ -235,7 +239,7 @@ export default {
             axios.get(this.baseUrl + 'child_category?q='+ _this.filter.search+'&page='+page+'&row='+_this.filter.row)
                 .then((response) => {
                     _this.child_categoryData = response.data.data;
-                    console.log( _this.child_categoryData );
+                    //console.log( _this.child_categoryData );
                 })
                 .catch((error) => {
                     console.log(error);
@@ -288,7 +292,8 @@ export default {
         },
         Edit : function (index, id) {
             const _this = this;
-            _this.form = _this.EditDepartmentForm=JSON.parse(JSON.stringify(_this.child_categoryData.data[index]));
+            _this.form = JSON.parse(JSON.stringify(_this.child_categoryData.data[index]));
+            _this.getSubCategory(_this.form.sub_category_id);
             _this.edit_child_category = true;
             _this.edit_index_no = id;
             _this.submit_url = this.baseUrl+ 'child_category/'+id;
@@ -297,6 +302,8 @@ export default {
         Add : function () {
             const _this = this;
             this.resetForm();
+            _this.form.status = 1;
+            _this.form.type = 3;
             _this.edit_child_category = false;
             _this.submit_url = this.baseUrl + 'child_category';
         }
