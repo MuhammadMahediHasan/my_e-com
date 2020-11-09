@@ -7,11 +7,11 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Category</li>
+                            <li class="breadcrumb-item active">AttributeValue</li>
                         </ol>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <button class="btn bg-gradient-info btn-flat text-right btn-sm" data-toggle="modal" @click="Add()" data-target="#myModal">Add Category
+                        <button class="btn bg-gradient-info btn-flat text-right btn-sm" data-toggle="modal" @click="Add()" data-target="#myModal">Add AttributeValue
                         </button>
                     </div>
 
@@ -22,7 +22,7 @@
                             <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Create Category</h5>
+                                    <h5 class="modal-title">Create AttributeValue</h5>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <form @submit.prevent="submit()">
@@ -33,17 +33,16 @@
                                             <span class="text-danger" v-if='$vuelidation.error("form.name")'>{{ $vuelidation.error('form.name') }}</span>
                                         </div>
                                         <div class="form-group">
-                                            <label>Description</label>
-                                            <textarea class="form-control" v-model="form.description" placeholder="Description"></textarea>
+                                            <label>Attribute</label>
+                                            <select class="form-control" v-model="form.attribute_id">
+                                                <option value="">Select Attribute</option>
+                                                <option v-for="data_value in attributeData" :value="data_value.id">{{ data_value.name }}</option>
+                                            </select>
+                                            <span class="text-danger" v-if='$vuelidation.error("form.attribute_id")'>{{ $vuelidation.error('form.attribute_id') }}</span>
                                         </div>
                                         <div class="form-group">
-                                            <label>Status</label>
-                                            <select class="form-control" v-model="form.status">
-                                                <option value="">Select</option>
-                                                <option value="1">Active</option>
-                                                <option value="0">De-active</option>
-                                            </select>
-                                            <span class="text-danger" v-if='$vuelidation.error("form.status")'>{{ $vuelidation.error('status') }}</span>
+                                            <label>Description</label>
+                                            <textarea class="form-control" v-model="form.description" placeholder="Description"></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -67,7 +66,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Category DataTable</h3>
+                                <h3 class="card-title">AttributeValue DataTable</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -94,15 +93,17 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Status</th>
+                                        <th>Attribute</th>
+                                        <th>Description</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(data_value, index) in categoryData.data">
+                                    <tr v-for="(data_value, index) in attribute_valueData.data">
                                         <td>{{ index+1 }}</td>
                                         <td>{{ data_value.name }}</td>
-                                        <td>{{ data_value.status == 1 ? 'Active' : 'De-active' }}</td>
+                                        <td>{{ data_value.attribute.name }}</td>
+                                        <td>{{ data_value.description }}</td>
                                         <td>
                                             <button class="btn btn-danger btn-sm" @click="Delete(index, data_value.id)">
                                                 <i class="fa fa-trash"></i>
@@ -117,12 +118,13 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Status</th>
+                                        <th>Attribute</th>
+                                        <th>Description</th>
                                         <th>Action</th>
                                     </tr>
                                     </tfoot>
                                 </table>
-                                <pagination :data="categoryData" @pagination-change-page="getData()"></pagination>
+                                <pagination :data="attribute_valueData" @pagination-change-page="getData()"></pagination>
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -134,125 +136,142 @@
 </template>
 
 <script>
-    export default {
-        name : 'category',
-        data() {
-            return {
-                form : {
-                    name : '',
-                    description : '',
-                    status : 1,
+export default {
+    name : 'attribute_value',
+    data() {
+        return {
+            form : {
+                name : '',
+                attribute_id : '',
+                description : '',
+            },
+            filter : {
+                table_row : [10, 20, 30, 50],
+                search : '',
+                row : 10,
+            },
+            attributeData : {},
+            attribute_valueData : {},
+            edit_attribute_value : false,
+            edit_index_no : 0,
+            submit_url : '',
+        }
+    },
+    watch: {
+        'filter.row': function (newVal, oldVal) {
+            this.getData();
+        },
+        'filter.search': function (newVal, oldVal) {
+            this.getData();
+        },
+    },
+    vuelidation : {
+        data: {
+            form : {
+                name: {
+                    required: true, msg : 'name field is required!'
                 },
-                filter : {
-                    table_row : [10, 20, 30, 50],
-                    search : '',
-                    row : 10,
+                attribute_id: {
+                    required: true, msg : 'atribute name field is required!'
                 },
-                categoryData : {},
-                edit_category : false,
-                edit_index_no : 0,
-                submit_url : '',
+            },
+        },
+    },
+    methods: {
+        submit : function () {
+            const _this = this;
+            if (this.$vuelidation.valid('form')) {
+                this.Loader();
+                $('#myModal').modal('hide');
+                if (_this.edit_attribute_value === false) {
+                    axios.post(_this.submit_url, _this.form)
+                        .then((response) => {
+                            this.getData();
+                            //_this.attribute_valueData.data.push(response.data.data);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        })
+                }
+                if (_this.edit_attribute_value === true) {
+                    axios.put(_this.submit_url, _this.form)
+                        .then((response) => {
+                            this.getData();
+                            //_this.attribute_valueData.data[_this.edit_index_no] = response.data.data;
+                            //console.log( response.data.data);
+                            //console.log( _this.attribute_valueData.data[_this.edit_index_no] );
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        })
+                }
             }
         },
-        watch: {
-            'filter.row': function (newVal, oldVal) {
-                this.getData();
-            },
-            'filter.search': function (newVal, oldVal) {
-                this.getData();
-            },
-        },
-        vuelidation : {
-            data: {
-                form : {
-                    name: {
-                        required: true, msg : 'name field is required!'
-                    },
-                    status: {
-                        required: true, msg : 'status field is required!'
-                    },
-                },
-            },
-        },
-        methods: {
-            submit : function () {
-                const _this = this;
-                if (this.$vuelidation.valid('form')) {
-                    this.Loader();
-                    $('#myModal').modal('hide');
-                    if (_this.edit_category === false) {
-                        axios.post(_this.submit_url, _this.form)
-                            .then((response) => {
-                                _this.categoryData.data.push(response.data.data);
-                            })
-                            .catch((error) => {
-                                console.log(error);
-                            })
-                    }
-                    if (_this.edit_category === true) {
-                        axios.put(_this.submit_url, _this.form)
-                            .then((response) => {
-                                _this.categoryData.data[_this.edit_index_no] = response.data.data;
-                            })
-                            .catch((error) => {
-                                console.log(error);
-                            })
-                    }
-                }
-            },
-            getData : function (page = 1){
-                const _this = this;
-                axios.get(this.baseUrl + 'category?q='+ _this.filter.search+'&page='+page+'&row='+_this.filter.row)
+        getData : function (page = 1){
+            const _this = this;
+            axios.get(this.baseUrl + 'attribute_value?q='+ _this.filter.search+'&page='+page+'&row='+_this.filter.row)
                 .then((response) => {
-                    _this.categoryData = response.data.data;
-                    console.log( _this.categoryData );
+                    _this.attribute_valueData = response.data.data;
                 })
                 .catch((error) => {
                     console.log(error);
                 })
-            },
-            Delete : function (index, id) {
-                const _this = this;
-                Vue.swal.fire({
-                    title: 'Do you want to save the changes?',
-                    showCancelButton: true,
-                    confirmButtonText: `Delete`,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        this.Loader();
-                        axios.delete(this.baseUrl + 'category/' + id)
+        },
+        getAttributeValue : function (){
+            const _this = this;
+            axios.get(this.baseUrl + 'attribute_value/create')
+                .then((response) => {
+                    _this.attributeData = response.data.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        },
+        Delete : function (index, id) {
+            const _this = this;
+            Vue.swal.fire({
+                title: 'Do you want to save the changes?',
+                showCancelButton: true,
+                confirmButtonText: `Delete`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.Loader();
+                    axios.delete(this.baseUrl + 'attribute_value/' + id)
                         .then((response) => {
                             if (response.data.status == 200) {
                                 Vue.swal.fire('Deleted!', '', 'success')
-                                _this.categoryData.data.splice(index,1);
+                                _this.attribute_valueData.data.splice(index,1);
                             }
                         })
                         .catch((error) => {
                             console.log(error);
                         })
-                    } else if (result.isDenied) {
-                        Vue.swal.fire('Category are not Deleted!', '', 'info')
-                    }
-                })
+                } else if (result.isDenied) {
+                    Vue.swal.fire('AttributeValue are not Deleted!', '', 'info')
+                }
+            })
 
-            },
-            Edit : function (index, id) {
-                const _this = this;
-                _this.form = JSON.parse(JSON.stringify(_this.categoryData.data[index]));
-                _this.edit_category = true;
-                _this.edit_index_no = id;
-                _this.submit_url = this.baseUrl+ 'category/'+id;
-                $('#myModal').modal('show');
-            },
-            Add : function () {
-                const _this = this;
-                this.resetForm();
-                _this.edit_category = false;
-                _this.submit_url = this.baseUrl + 'category';
-            }
         },
-        created() {
-            this.getData();
+        Edit : function (index, id) {
+            const _this = this;
+            _this.form =JSON.parse(JSON.stringify(_this.attribute_valueData.data[index]));
+            _this.edit_attribute_value = true;
+            _this.edit_index_no = id;
+            _this.submit_url = this.baseUrl+ 'attribute_value/'+id;
+            $('#myModal').modal('show');
+        },
+        Add : function () {
+            const _this = this;
+            this.resetForm();
+            _this.form.status = 1;
+            _this.form.type = 2;
+            _this.edit_attribute_value = false;
+            _this.submit_url = this.baseUrl + 'attribute_value';
         }
+    },
+    created() {
+        this.getData();
+        this.getAttributeValue();
     }
+}
 </script>

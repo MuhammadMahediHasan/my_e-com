@@ -58,3 +58,9 @@ body {
 .form-control {
     font-family: inherit;
 }
+.modal-content{
+    border-radius: .2rem;
+}
+.table tr td button i {
+    font-size : 12px;
+}

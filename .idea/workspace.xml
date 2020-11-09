@@ -23,32 +23,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f34cd46-9fc4-4319-a7f3-f4070916cae3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/backend/VendorComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/my_e-com.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/my_e-com.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/backend/AttributeComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/backend/AttributeValueComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/backend/Product/AddProductComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductListComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ChildCategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ChildCategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SubCategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SubCategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Category.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/HelperTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/HelperTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_05_124417_create_categories.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_05_124417_create_categories.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_06_090638_create_sub_categories.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_06_103902_create_child_categories.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/backend_assets/custom_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/backend_assets/custom_style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/backend_assets/dist/css/adminlte.min.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/backend/CategoryComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/CategoryComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/ChildCategoryComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/ChildCategoryComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/SubCategoryComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/SubCategoryComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/layouts/NavBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/layouts/NavBar.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/backend/layouts/SideBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/layouts/SideBar.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -216,7 +201,8 @@
       <workItem from="1604655793466" duration="13898000" />
       <workItem from="1604724195437" duration="10347000" />
       <workItem from="1604812558925" duration="81000" />
-      <workItem from="1604816221076" duration="3009000" />
+      <workItem from="1604816221076" duration="4912000" />
+      <workItem from="1604894596329" duration="11004000" />
     </task>
     <servers />
   </component>
@@ -268,10 +254,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="339" y="172" key="run.anything.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1604570379074" />
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1604731182855">
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1604920079049">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1604731182855" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1604920079049" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -284,7 +270,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/backend/VendorComponent.vue</url>
           <line>123</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
