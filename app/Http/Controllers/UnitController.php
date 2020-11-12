@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Attribute;
-use App\Models\AttributeValue;
+use App\Models\Unit;
 
-class AttributeValueController extends Controller
+class UnitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +14,11 @@ class AttributeValueController extends Controller
      */
     public function index(Request $request)
     {
-        $data = AttributeValue::where(function ($data) use ($request){
+        $data = Unit::where(function ($data) use ($request){
             if($request->q){
                 $data->where('name', 'like', '%' . $request->q . '%');
             }
-        })->with('attribute')->paginate($request->row);
+        })->paginate($request->row);
 
         $return_data = $this->successResponse($data, 'Data Retrived!');
         return response($return_data, 200);
@@ -32,9 +31,9 @@ class AttributeValueController extends Controller
      */
     public function create()
     {
-        $attribute = Attribute::all();
-        $return_data = $this->successResponse($attribute, 'Data Retrived!');
-        return response($return_data, 200);
+        $data = Unit::all();
+        $return_data = $this->successResponse($data, 'Size Data Retrived Successfully');
+        return response()->json($return_data);
     }
 
     /**
@@ -45,9 +44,9 @@ class AttributeValueController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new AttributeValue;
+        $data = new Unit;
         $data->fill($request->all())->save();
-        $return_data = $this->successResponse($data, 'AttributeValue Data Added Successfully');
+        $return_data = $this->successResponse($data, 'Unit Data Added Successfully');
         return response()->json($return_data);
     }
 
@@ -82,7 +81,7 @@ class AttributeValueController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = AttributeValue::findOrFail($id);
+        $data = Unit::findOrFail($id);
         $data->fill($request->all())->save();
         $return_data = $this->successResponse($data, 'Data Edited!');
         return response($return_data, 200);
@@ -96,7 +95,7 @@ class AttributeValueController extends Controller
      */
     public function destroy($id)
     {
-        $data = AttributeValue::findOrFail($id)->delete();
+        $data = Unit::findOrFail($id)->delete();
         $return_data = $this->successResponse($data, 'Data Deleted!');
         return response($return_data, 200);
     }

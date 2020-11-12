@@ -64,3 +64,14 @@ body {
 .table tr td button i {
     font-size : 12px;
 }
+.child_attribute {
+    display: inline-flex;
+}
+.attribute_value {
+    margin-left: 36px;
+    margin-top: 10px;
+    display: none;
+}
+.attribute_value .child_attribute {
+    width: 20%;
+}

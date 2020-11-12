@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAttributeValues extends Migration
+class CreateTags extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateAttributeValues extends Migration
      */
     public function up()
     {
-        Schema::create('attribute_values', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('attribute_id')->constrained('attributes', 'id')->onDelete('cascade');
             $table->string('name');
-            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateAttributeValues extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attribute_values');
+        Schema::dropIfExists('tags');
     }
 }

@@ -7,14 +7,54 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Product</li>
+                            <li class="breadcrumb-item active">Size</li>
                         </ol>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <router-link to="/create_product" class="btn bg-gradient-info btn-flat text-right btn-sm">Add Product</router-link>
+                        <button class="btn bg-gradient-info btn-flat text-right btn-sm" data-toggle="modal" @click="Add()" data-target="#myModal">Add Size
+                        </button>
                     </div>
 
                     <!-- Modal -->
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Create Size</h5>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <form @submit.prevent="submit()">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control" v-model="form.name" placeholder="Enter Name">
+                                            <span class="text-danger" v-if='$vuelidation.error("form.name")'>{{ $vuelidation.error('form.name') }}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea class="form-control" v-model="form.description" placeholder="Description"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select class="form-control" v-model="form.status">
+                                                <option value="">Select</option>
+                                                <option value="1">Active</option>
+                                                <option value="0">De-active</option>
+                                            </select>
+                                            <span class="text-danger" v-if='$vuelidation.error("form.status")'>{{ $vuelidation.error('status') }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn bg-gradient-primary btn-flat btn-sm" type="submit" :disabled="$vuelidation.errors()">Submit</button>
+                                        <button type="button" class="btn bg-gradient-secondary btn-flat btn-sm" data-dismiss="modal">Close</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -27,7 +67,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Product DataTable</h3>
+                                <h3 class="card-title">Size DataTable</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -59,7 +99,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(data_value, index) in productData.data">
+                                    <tr v-for="(data_value, index) in sizeData.data">
                                         <td>{{ index+1 }}</td>
                                         <td>{{ data_value.name }}</td>
                                         <td>{{ data_value.status == 1 ? 'Active' : 'De-active' }}</td>
@@ -82,7 +122,7 @@
                                     </tr>
                                     </tfoot>
                                 </table>
-                                <pagination :data="productData" @pagination-change-page="getData()"></pagination>
+                                <pagination :data="sizeData" @pagination-change-page="getData()"></pagination>
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -95,7 +135,7 @@
 
 <script>
 export default {
-    name : 'product',
+    name : 'size',
     data() {
         return {
             form : {
@@ -108,8 +148,8 @@ export default {
                 search : '',
                 row : 10,
             },
-            productData : {},
-            edit_product : false,
+            sizeData : {},
+            edit_size : false,
             edit_index_no : 0,
             submit_url : '',
         }
@@ -122,13 +162,50 @@ export default {
             this.getData();
         },
     },
+    vuelidation : {
+        data: {
+            form : {
+                name: {
+                    required: true, msg : 'name field is required!'
+                },
+                status: {
+                    required: true, msg : 'status field is required!'
+                },
+            },
+        },
+    },
     methods: {
+        submit : function () {
+            const _this = this;
+            if (this.$vuelidation.valid('form')) {
+                this.Loader();
+                $('#myModal').modal('hide');
+                if (_this.edit_size === false) {
+                    axios.post(_this.submit_url, _this.form)
+                        .then((response) => {
+                            _this.sizeData.data.push(response.data.data);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        })
+                }
+                if (_this.edit_size === true) {
+                    axios.put(_this.submit_url, _this.form)
+                        .then((response) => {
+                            _this.sizeData.data[_this.edit_index_no] = response.data.data;
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        })
+                }
+            }
+        },
         getData : function (page = 1){
             const _this = this;
-            axios.get(this.baseUrl + 'product?q='+ _this.filter.search+'&page='+page+'&row='+_this.filter.row)
+            axios.get(this.baseUrl + 'size?q='+ _this.filter.search+'&page='+page+'&row='+_this.filter.row)
                 .then((response) => {
-                    _this.productData = response.data.data;
-                    console.log( _this.productData );
+                    _this.sizeData = response.data.data;
+                    console.log( _this.sizeData );
                 })
                 .catch((error) => {
                     console.log(error);
@@ -143,22 +220,36 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     this.Loader();
-                    axios.delete(this.baseUrl + 'product/' + id)
+                    axios.delete(this.baseUrl + 'size/' + id)
                         .then((response) => {
                             if (response.data.status == 200) {
                                 Vue.swal.fire('Deleted!', '', 'success')
-                                _this.productData.data.splice(index,1);
+                                _this.sizeData.data.splice(index,1);
                             }
                         })
                         .catch((error) => {
                             console.log(error);
                         })
                 } else if (result.isDenied) {
-                    Vue.swal.fire('Product are not Deleted!', '', 'info')
+                    Vue.swal.fire('Size are not Deleted!', '', 'info')
                 }
             })
 
         },
+        Edit : function (index, id) {
+            const _this = this;
+            _this.form = JSON.parse(JSON.stringify(_this.sizeData.data[index]));
+            _this.edit_size = true;
+            _this.edit_index_no = id;
+            _this.submit_url = this.baseUrl+ 'size/'+id;
+            $('#myModal').modal('show');
+        },
+        Add : function () {
+            const _this = this;
+            this.resetForm();
+            _this.edit_size = false;
+            _this.submit_url = this.baseUrl + 'size';
+        }
     },
     created() {
         this.getData();

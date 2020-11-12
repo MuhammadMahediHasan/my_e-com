@@ -74,19 +74,24 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-adjust"></i>
                             <p>
-                                Manage Attribute
+                                Manage Variation
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <router-link to="/attribute" class="nav-link">
-                                    <p>Attribute</p>
+                                <router-link to="/size" class="nav-link">
+                                    <p>Size</p>
                                 </router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/attribute_value" class="nav-link">
-                                    <p>Attribute Variation</p>
+                                <router-link to="/color" class="nav-link">
+                                    <p>Color</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/unit" class="nav-link">
+                                    <p>Unit</p>
                                 </router-link>
                             </li>
                         </ul>
@@ -106,11 +111,11 @@
                                     <p>Create Product</p>
                                 </router-link>
                             </li>
-<!--                            <li class="nav-item">-->
-<!--                                <router-link to="/attribute_value" class="nav-link">-->
-<!--                                    <p>Product List</p>-->
-<!--                                </router-link>-->
-<!--                            </li>-->
+                            <li class="nav-item">
+                                <router-link to="/product_list" class="nav-link">
+                                    <p>Product List</p>
+                                </router-link>
+                            </li>
                         </ul>
                     </li>
                 </ul>

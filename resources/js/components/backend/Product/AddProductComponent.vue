@@ -11,8 +11,9 @@
                         </ol>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <button class="btn bg-gradient-info btn-flat text-right btn-sm">Add Product
-                        </button>
+                        <div class="col-sm-6 text-right">
+                            <router-link to="/product_list" class="btn bg-gradient-info btn-flat text-right btn-sm">Product List</router-link>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -46,7 +47,8 @@
                                                     <label>Vendor</label>
                                                     <select class="form-control" v-model="form.vendor_id">
                                                         <option value="">Select</option>
-                                                        <option value="1">Active</option>
+                                                        <option v-for="(data_value, index) in vendorData" :value="data_value.id">
+                                                            {{ data_value.name }}</option>
                                                     </select>
                                                     <span class="text-danger" v-if='$vuelidation.error("form.vendor_id")'>{{ $vuelidation.error('form.vendor_id') }}</span>
                                                 </div>
@@ -56,7 +58,7 @@
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label>Category Name</label>
+                                                    <label>Category </label>
                                                     <select class="form-control" v-model="form.category_id">
                                                         <option value="">Select</option>
                                                         <option v-for="(data_value, index) in categoryData" :value="data_value.id">
@@ -89,18 +91,72 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label>Unit </label>
+                                                    <select class="form-control" v-model="form.unit_id">
+                                                        <option value="">Select</option>
+                                                        <option v-for="(data_value, index) in unitData" :value="data_value.id">
+                                                            {{ data_value.name }}</option>
+                                                    </select>
+                                                    <span class="text-danger" v-if='$vuelidation.error("form.unit_id")'>{{ $vuelidation.error('form.category_id') }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Purchase Price</label>
-                                                    <input type="text" class="form-control" v-model="form.purchase_price" placeholder="Enter Name">
+                                                    <input type="text" class="form-control" v-model="form.purchase_price" placeholder="Purchase Price">
                                                     <span class="text-danger" v-if='$vuelidation.error("form.purchase_price")'>{{ $vuelidation.error('form.purchase_price') }}</span>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label>Sale Price</label>
-                                                    <input type="text" class="form-control" v-model="form.sale_price" placeholder="Enter Name">
+                                                    <input type="text" class="form-control" v-model="form.sale_price" placeholder="Sale Price">
                                                     <span class="text-danger" v-if='$vuelidation.error("form.sale_price")'>{{ $vuelidation.error('form.sale_price') }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Tags</label>
+                                                    <input-tag v-model="form.tags" class="form-control" placeholder="Tages"></input-tag>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <label>Attribute</label>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" @click="showVariation($event,'color')">
+                                                        <label class="form-check-label">Color</label>
+                                                    </div>
+                                                    <div class="row attribute_value color">
+                                                        <div class="form-group" v-for="(data) in colorData">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" @click="addVariation($event, 'color', data.id)">
+                                                                <label class="form-check-label">{{ data.name }}</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" @click="showVariation($event,'size')">
+                                                        <label class="form-check-label">Size</label>
+                                                    </div>
+                                                    <div class="row attribute_value size">
+                                                        <div class="child_attribute" v-for="(data) in sizeData">
+                                                            <div class="form-group">
+                                                                <input class="form-check-input" type="checkbox" @click="addVariation($event, 'size', data.id)">
+                                                                <label class="form-check-label">{{ data.name }}</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -135,12 +191,15 @@
 </template>
 
 <script>
+import Treeselect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 export default {
     name: 'product',
     data() {
         return {
             form: {
                 name: '',
+                unit_id : '',
                 vendor_id : '',
                 category_id : '',
                 sub_category_id : '',
@@ -148,6 +207,9 @@ export default {
                 purchase_price: '',
                 sale_price : '',
                 description: '',
+                tags: [],
+                size: [],
+                color: [],
             },
             filter: {
                 table_row: [10, 20, 30, 50],
@@ -156,9 +218,14 @@ export default {
             },
             validationErrors : [],
             productData: {},
+            vendorData: {},
+            sizeData: {},
+            colorData: {},
+            unitData: {},
             categoryData: {},
             subCategoryData: {},
             childCategoryData: {},
+            optionsValue: [],
             submit_url: '',
         }
     },
@@ -175,6 +242,9 @@ export default {
             form : {
                 name: {
                     required: true, msg : 'name field is required!'
+                },
+                unit_id : {
+                    required: true, msg : 'unit field is required!'
                 },
                 vendor_id : {
                     required: true, msg : 'vendor field is required!'
@@ -197,6 +267,7 @@ export default {
     methods: {
         submit: function () {
             const _this = this;
+            console.log(_this.optionsValue);
             if (this.$vuelidation.valid('form')) {
                 this.Loader();
                 axios.post(this.baseUrl +'product', _this.form)
@@ -208,11 +279,61 @@ export default {
                 })
             }
         },
+        getAttribute : function (){
+            const _this = this;
+            axios.get(this.baseUrl + 'product/create')
+                .then((response) => {
+                    _this.attributeData = response.data.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        },
         getCategory : function (){
             const _this = this;
             axios.get(this.baseUrl + 'sub_category/create')
                 .then((response) => {
                     _this.categoryData = response.data.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        },
+        getVendor : function (){
+            const _this = this;
+            axios.get(this.baseUrl + 'vendor/create')
+                .then((response) => {
+                    _this.vendorData = response.data.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        },
+        getSize : function (){
+            const _this = this;
+            axios.get(this.baseUrl + 'size/create')
+                .then((response) => {
+                    _this.sizeData = response.data.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        },
+        getColor : function (){
+            const _this = this;
+            axios.get(this.baseUrl + 'color/create')
+                .then((response) => {
+                    _this.colorData = response.data.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        },
+        getUnit : function (){
+            const _this = this;
+            axios.get(this.baseUrl + 'unit/create')
+                .then((response) => {
+                    _this.unitData = response.data.data;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -238,10 +359,53 @@ export default {
                     console.log(error);
                 })
         },
+        showVariation : function (event,class_name) {
+            const _this = this;
+            if (event.target.checked){
+                $('.' + class_name).show();
+            } else {
+                $('.' + class_name).hide();
+                $('.' + class_name + ' ' + ' input:checkbox').prop('checked', false);
+                if (class_name == 'size') {
+                    _this.form.size = [];
+                } else {
+                    _this.form.color = [];
+                }
+            }
+        },
+        addVariation : function (event,type , value) {
+            const _this = this;
+            if (event.target.checked){
+                if(type == 'size')
+                    _this.form.size.push(value);
+                if (type == 'color')
+                    _this.form.color.push(value);
+            } else {
+                if(type == 'size') {
+                    if (_this.form.size.includes(value)){
+                        var key = _this.form.size.indexOf(value);
+                        if (key > -1) {
+                            _this.form.size.splice(key, 1);
+                        }
+                    }
+                }
+                if (type == 'color') {
+                    if (_this.form.color.includes(value)){
+                        var key = _this.form.color.indexOf(value);
+                        if (key > -1) {
+                            _this.form.color.splice(key, 1);
+                        }
+                    }
+                }
+            }
+        }
     },
     created() {
-        //this.getData();
         this.getCategory();
+        this.getVendor();
+        this.getSize();
+        this.getColor();
+        this.getUnit();
     }
 }
 </script>

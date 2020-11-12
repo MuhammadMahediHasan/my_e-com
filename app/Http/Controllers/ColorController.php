@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Attribute;
+use App\Models\Color;
 
-class AttributeController extends Controller
+class ColorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class AttributeController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Attribute::where(function ($data) use ($request){
-            if($request->q) {
+        $data = Color::where(function ($data) use ($request){
+            if($request->q){
                 $data->where('name', 'like', '%' . $request->q . '%');
             }
         })->paginate($request->row);
@@ -31,7 +31,9 @@ class AttributeController extends Controller
      */
     public function create()
     {
-        //
+        $data = Color::all();
+        $return_data = $this->successResponse($data, 'Color Data Retrived Successfully');
+        return response()->json($return_data);
     }
 
     /**
@@ -42,9 +44,9 @@ class AttributeController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new Attribute;
+        $data = new Color;
         $data->fill($request->all())->save();
-        $return_data = $this->successResponse($data, 'Attribute Data Added Successfully');
+        $return_data = $this->successResponse($data, 'Color Data Added Successfully');
         return response()->json($return_data);
     }
 
@@ -79,7 +81,7 @@ class AttributeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Attribute::findOrFail($id);
+        $data = Color::findOrFail($id);
         $data->fill($request->all())->save();
         $return_data = $this->successResponse($data, 'Data Edited!');
         return response($return_data, 200);
@@ -93,7 +95,7 @@ class AttributeController extends Controller
      */
     public function destroy($id)
     {
-        $data = Attribute::findOrFail($id)->delete();
+        $data = Color::findOrFail($id)->delete();
         $return_data = $this->successResponse($data, 'Data Deleted!');
         return response($return_data, 200);
     }
