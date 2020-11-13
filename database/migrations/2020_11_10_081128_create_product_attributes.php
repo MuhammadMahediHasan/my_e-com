@@ -15,6 +15,7 @@ class CreateProductAttributes extends Migration
     {
         Schema::create('product_attributes', function (Blueprint $table) {
             $table->id();
+            $table->tinyInteger('type')->comment('1=color, 2=size');
             $table->foreignId('product_id')->constrained('products', 'id')->onDelete('cascade');
             $table->foreignId('color_id')->nullable()->constrained('colors', 'id')->onDelete('cascade');
             $table->foreignId('size_id')->nullable()->constrained('sizes', 'id')->onDelete('cascade');

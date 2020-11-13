@@ -12,7 +12,7 @@ class Product extends Model
     use HasFactory;
     use HasSlug;
 
-    protected $fillable = ['name', 'slug', 'vendor_id', 'category_id', 'sub_category_id', 'child_category_id', 'purchase_price', 'sale_price', 'description'];
+    protected $fillable = ['name', 'slug', 'vendor_id', 'unit_id', 'category_id', 'sub_category_id', 'child_category_id', 'purchase_price', 'sale_price', 'description'];
 
 
     public function getSlugOptions() : SlugOptions
@@ -38,7 +38,15 @@ class Product extends Model
         return $this->belongsTo('App\Models\User', 'vendor_id', 'id');
     }
 
-    public function attribute(){
-        return $this->hasMany('App\Models\ProductAttribute', 'product_id');
+    public function unit(){
+        return $this->belongsTo('App\Models\Unit', 'unit_id', 'id');
+    }
+
+    public function color(){
+        return $this->hasMany('App\Models\ProductAttribute', 'product_id')->where('type', 1);
+    }
+
+    public function size(){
+        return $this->hasMany('App\Models\ProductAttribute', 'product_id')->where('type', 2);
     }
 }

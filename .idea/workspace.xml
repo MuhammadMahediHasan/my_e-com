@@ -23,38 +23,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f34cd46-9fc4-4319-a7f3-f4070916cae3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ColorController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/SizeController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Color.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Size.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Tag.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_10_10_082000_create_tags.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_11_09_063521_create_colors.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/backend/ColorComponent.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/backend/SizeComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductEditComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AttributeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UnitController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AttributeValueController.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/VendorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/VendorController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Attribute.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Unit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/AttributeValue.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/HelperTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/HelperTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_09_063242_create_attributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_09_063242_create_sizes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_09_063521_create_attribute_values.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_09_063242_create_units.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/backend_assets/custom_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/backend_assets/custom_style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/ProductAttribute.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ProductAttribute.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_09_084145_create_products.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_09_084145_create_products.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_10_081128_create_product_attributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_10_081128_create_product_attributes.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/AttributeComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/UnitComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/AttributeValueComponent.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/backend/Product/AddProductComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Product/AddProductComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/layouts/SideBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/layouts/SideBar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +212,8 @@
       <workItem from="1605090887637" duration="3188000" />
       <workItem from="1605103641654" duration="27000" />
       <workItem from="1605160702688" duration="1540000" />
-      <workItem from="1605164286098" duration="3939000" />
+      <workItem from="1605164286098" duration="4667000" />
+      <workItem from="1605278063756" duration="3227000" />
     </task>
     <servers />
   </component>
@@ -319,13 +298,11 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/backend/Product/AddProductComponent.vue</url>
           <line>268</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/backend/Product/AddProductComponent.vue</url>
           <line>240</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>

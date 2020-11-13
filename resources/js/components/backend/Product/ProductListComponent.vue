@@ -54,6 +54,13 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
+                                        <th>Category</th>
+                                        <th>SubCategory</th>
+                                        <th>ChildCategory</th>
+                                        <th>Vendor</th>
+                                        <th>Color</th>
+                                        <th>Size</th>
+                                        <th>Unit</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -62,6 +69,17 @@
                                     <tr v-for="(data_value, index) in productData.data">
                                         <td>{{ index+1 }}</td>
                                         <td>{{ data_value.name }}</td>
+                                        <td>{{ data_value.category.name }}</td>
+                                        <td>{{ data_value.sub_category.name }}</td>
+                                        <td>{{ data_value.child_category.name }}</td>
+                                        <td>{{ data_value.vendor.name }}</td>
+                                        <td>
+                                            <span v-for="colors in data_value.color" v-text="' '+colors.color.name+' |'"></span>
+                                        </td>
+                                        <td>
+                                            <span v-for="sizes in data_value.size" v-text="' '+sizes.size.name+' |'"></span>
+                                        </td>
+                                        <td>{{ data_value.unit.name }}</td>
                                         <td>{{ data_value.status == 1 ? 'Active' : 'De-active' }}</td>
                                         <td>
                                             <button class="btn btn-danger btn-sm" @click="Delete(index, data_value.id)">
@@ -77,6 +95,13 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
+                                        <th>Category</th>
+                                        <th>SubCategory</th>
+                                        <th>ChildCategory</th>
+                                        <th>Vendor</th>
+                                        <th>Color</th>
+                                        <th>Size</th>
+                                        <th>Unit</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>

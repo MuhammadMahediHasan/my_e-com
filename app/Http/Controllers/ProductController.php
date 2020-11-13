@@ -25,24 +25,9 @@ class ProductController extends Controller
             if ($request->q) {
                 $data->where('name', 'like', '%' . $request->q . '%');
             }
-        })->with(['category',
-            'sub_category',
-            'child_category',
-            'vendor',
-            'attribute.attribute_value.attribute'])
+        })->with(['category', 'sub_category', 'child_category', 'vendor', 'unit', 'color.color', 'size.size'])
             ->orderBy('created_at', 'DESC')
             ->paginate($request->row);
-
-        $data = $data->setCollection(
-            $data->getCollection()->map(function($data) {
-                return [
-                    "category_name" => $data->category->name,
-                    "sub_category_name" => $data->sub_category->name,
-                    "child_category_name" => $data->child_category->name,
-                    "vendor_name" => $data->vendor->name,
-                ];
-            })
-        );
 
         $return_data = $this->successResponse($data, 'Data Retrived!');
         return response($return_data, 200);
@@ -95,6 +80,7 @@ class ProductController extends Controller
         if (count($request->size) > 0) {
             foreach ($request->size as $key => $value) {
                 $product_attr = new ProductAttribute;
+                $product_attr->type = 2;
                 $product_attr->product_id = $data->id;
                 $product_attr->size_id = $value;
                 $product_attr->save();
@@ -104,6 +90,7 @@ class ProductController extends Controller
         if (count($request->color) > 0) {
             foreach ($request->color as $key => $value) {
                 $product_attr = new ProductAttribute;
+                $product_attr->type = 1;
                 $product_attr->product_id = $data->id;
                 $product_attr->color_id = $value;
                 $product_attr->save();

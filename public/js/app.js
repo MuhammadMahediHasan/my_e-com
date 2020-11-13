@@ -7333,14 +7333,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submit: function submit() {
-      var _this = this;
+      var _this2 = this;
 
-      console.log(_this.optionsValue);
+      var _this = this;
 
       if (this.$vuelidation.valid('form')) {
         this.Loader();
         axios.post(this.baseUrl + 'product', _this.form).then(function (response) {
-          console.log(response);
+          _this2.resetForm();
+
+          _this.form.tags = [];
+          _this.form.size = [];
+          _this.form.color = [];
+          console.log(_this.form);
         })["catch"](function (error) {
           console.log(error);
         });
@@ -7483,6 +7488,31 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -63383,6 +63413,50 @@ var render = function() {
                             _c("td", [_vm._v(_vm._s(data_value.name))]),
                             _vm._v(" "),
                             _c("td", [
+                              _vm._v(_vm._s(data_value.category.name))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(data_value.sub_category.name))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(data_value.child_category.name))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data_value.vendor.name))]),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              _vm._l(data_value.color, function(colors) {
+                                return _c("span", {
+                                  domProps: {
+                                    textContent: _vm._s(
+                                      " " + colors.color.name + " |"
+                                    )
+                                  }
+                                })
+                              }),
+                              0
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              _vm._l(data_value.size, function(sizes) {
+                                return _c("span", {
+                                  domProps: {
+                                    textContent: _vm._s(
+                                      " " + sizes.size.name + " |"
+                                    )
+                                  }
+                                })
+                              }),
+                              0
+                            ),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data_value.unit.name))]),
+                            _vm._v(" "),
+                            _c("td", [
                               _vm._v(
                                 _vm._s(
                                   data_value.status == 1
@@ -63479,6 +63553,20 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Category")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("SubCategory")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("ChildCategory")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Vendor")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Color")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Size")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Unit")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Status")]),
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
@@ -63494,6 +63582,20 @@ var staticRenderFns = [
         _c("th", [_vm._v("#")]),
         _vm._v(" "),
         _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Category")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("SubCategory")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("ChildCategory")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Vendor")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Color")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Size")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Unit")]),
         _vm._v(" "),
         _c("th", [_vm._v("Status")]),
         _vm._v(" "),

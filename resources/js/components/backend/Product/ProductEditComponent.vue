@@ -270,18 +270,18 @@ export default {
             if (this.$vuelidation.valid('form')) {
                 this.Loader();
                 axios.post(this.baseUrl +'product', _this.form)
-                .then((response) => {
-                    this.resetForm();
+                    .then((response) => {
+                        this.resetForm();
 
-                    _this.form.tags = [];
-                    _this.form.size = [];
-                    _this.form.color = [];
+                        _this.form.tags = [];
+                        _this.form.size = [];
+                        _this.form.color = [];
 
-                    console.log(_this.form);
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
+                        console.log(_this.form);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
             }
         },
         getAttribute : function (){

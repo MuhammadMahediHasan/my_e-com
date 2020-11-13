@@ -19,13 +19,13 @@ class CreateProducts extends Migration
             $table->string('name');
             $table->string('slug');
             $table->foreignId('vendor_id')->constrained('users', 'id')->onDelete('cascade');
+            $table->foreignId('unit_id')->constrained('units', 'id')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories', 'id')->onDelete('cascade');
             $table->foreignId('sub_category_id')->constrained('categories', 'id')->onDelete('cascade');
             $table->foreignId('child_category_id')->nullable()->constrained('categories', 'id')->onDelete('cascade');
-            $table->foreignId('attribute_id')->nullable()->constrained('attributes', 'id')->onDelete('cascade');
-            $table->foreignId('attribute_value_id')->nullable()->constrained('attribute_values', 'id')->onDelete('cascade');
             $table->decimal('purchase_price',8,2)->default(0);
             $table->decimal('sale_price',8,2)->default(0);
+            $table->tinyInteger('status')->default(1)->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });
