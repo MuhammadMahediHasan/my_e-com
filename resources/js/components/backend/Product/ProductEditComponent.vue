@@ -132,13 +132,13 @@
                                                 <label>Attribute</label>
                                                 <div class="form-group">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" @click="showVariation($event,'color')">
+                                                        <input class="form-check-input" type="checkbox" @click="showVariation($event,'color')" checked="checked">
                                                         <label class="form-check-label">Color</label>
                                                     </div>
-                                                    <div class="row attribute_value color">
+                                                    <div class="row attribute_value color" style="display: block;">
                                                         <div class="form-group" v-for="(data) in colorData">
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" @click="addVariation($event, 'color', data.id)">
+                                                                <input class="form-check-input" type="checkbox" @click="addVariation($event, 'color', data.id)"  :checked="checkColor(data.id)">
                                                                 <label class="form-check-label">{{ data.name }}</label>
                                                             </div>
                                                         </div>
@@ -146,13 +146,13 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" @click="showVariation($event,'size')">
+                                                        <input class="form-check-input" type="checkbox" @click="showVariation($event,'size')" checked="checked">
                                                         <label class="form-check-label">Size</label>
                                                     </div>
-                                                    <div class="row attribute_value size">
+                                                    <div class="row attribute_value size" style="display: block;">
                                                         <div class="child_attribute" v-for="(data) in sizeData">
                                                             <div class="form-group">
-                                                                <input class="form-check-input" type="checkbox" @click="addVariation($event, 'size', data.id)">
+                                                                <input class="form-check-input" type="checkbox" @click="addVariation($event, 'size', data.id)"  :checked="checkSize(data.id)">
                                                                 <label class="form-check-label">{{ data.name }}</label>
                                                             </div>
                                                         </div>
@@ -165,7 +165,8 @@
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label>Description</label>
-                                                    <textarea class="form-control" v-model="form.description" placeholder="Description"></textarea>
+                                                    <vue-editor v-model="form.description" />
+<!--                                                    <textarea class="form-control" v-model="form.description" placeholder="Description"></textarea>-->
                                                     <span class="text-danger" v-if="validationErrors.description" v-text="validationErrors.description[0]"></span>
                                                 </div>
                                             </div>
@@ -191,10 +192,10 @@
 </template>
 
 <script>
-import Treeselect from '@riophae/vue-treeselect'
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import { VueEditor } from "vue2-editor";
 export default {
     name: 'product',
+    components: { VueEditor },
     data() {
         return {
             form: {
@@ -256,10 +257,14 @@ export default {
                     required: true, msg : 'sub category field is required!'
                 },
                 purchase_price : {
-                    required: true, numeric: true,  msg : 'purchase price must be a number!'
+                    required: true, msg : 'purchase price must be a number!',decimal: {
+                        points: 2,
+                    },
                 },
                 sale_price : {
-                    required: true, numeric: true, msg : 'sale price must be a number!'
+                    required: true, msg : 'sale price must be a number!',decimal: {
+                        points: 2,
+                    },
                 },
             },
         },
@@ -269,15 +274,9 @@ export default {
             const _this = this;
             if (this.$vuelidation.valid('form')) {
                 this.Loader();
-                axios.post(this.baseUrl +'product', _this.form)
+                axios.put(this.baseUrl +'product/'+this.$route.params.product_id, _this.form)
                     .then((response) => {
-                        this.resetForm();
-
-                        _this.form.tags = [];
-                        _this.form.size = [];
-                        _this.form.color = [];
-
-                        console.log(_this.form);
+                        //
                     })
                     .catch((error) => {
                         console.log(error);
@@ -364,6 +363,33 @@ export default {
                     console.log(error);
                 })
         },
+        getData : function (){
+            const _this = this;
+            axios.get(this.baseUrl + 'product/'+this.$route.params.product_id+'/edit')
+                .then((response) => {
+                    _this.form = response.data.data.data;
+                    _this.form.size = response.data.data.size;
+                    _this.form.color = response.data.data.color;
+                    _this.form.tags = response.data.data.tags;
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        },
+        checkColor : function (id) {
+            const _this = this;
+            var color = _this.form.color.indexOf(id);
+            if(color > -1)
+                return true;
+            return false;
+        },
+        checkSize : function (id) {
+            const _this = this;
+            var color = _this.form.size.indexOf(id);
+            if(color > -1)
+                return true;
+            return false;
+        },
         showVariation : function (event,class_name) {
             const _this = this;
             if (event.target.checked){
@@ -411,6 +437,7 @@ export default {
         this.getSize();
         this.getColor();
         this.getUnit();
+        this.getData();
     }
 }
 </script>

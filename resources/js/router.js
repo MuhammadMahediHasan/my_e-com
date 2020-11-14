@@ -8,6 +8,8 @@ import ColorComponent from './components/backend/ColorComponent'
 import UnitComponent from './components/backend/UnitComponent'
 import AddProductComponent from './components/backend/Product/AddProductComponent'
 import ProductListComponent from './components/backend/Product/ProductListComponent'
+import ProductEditComponent from './components/backend/Product/ProductEditComponent'
+import ProductImageComponent from './components/backend/Product/ProductImageComponent'
 
 export const routes = [
     { path: '/', component: DashBoardComponent, name:"/" },
@@ -20,4 +22,6 @@ export const routes = [
     { path: '/unit', component: UnitComponent, name:"/unit" },
     { path: '/create_product', component: AddProductComponent, name:"/create_product" },
     { path: '/product_list', component: ProductListComponent, name:"/product_list" },
+    { path:'/edit-product/:product_id', component:ProductEditComponent, name:'edit-product' },
+    { path:'/product-image/:product_id', component:ProductImageComponent, name:'product-image' },
 ]

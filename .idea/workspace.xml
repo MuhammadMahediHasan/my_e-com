@@ -23,16 +23,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f34cd46-9fc4-4319-a7f3-f4070916cae3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductEditComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductImageComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/ProductAttribute.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ProductAttribute.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_09_084145_create_products.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_09_084145_create_products.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_10_081128_create_product_attributes.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_10_081128_create_product_attributes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/ProductTag.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ProductTag.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/backend_assets/custom_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/backend_assets/custom_style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/backend/Product/AddProductComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Product/AddProductComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductEditComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductEditComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductListComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +216,8 @@
       <workItem from="1605103641654" duration="27000" />
       <workItem from="1605160702688" duration="1540000" />
       <workItem from="1605164286098" duration="4667000" />
-      <workItem from="1605278063756" duration="3227000" />
+      <workItem from="1605278063756" duration="4456000" />
+      <workItem from="1605328848457" duration="12093000" />
     </task>
     <servers />
   </component>
@@ -273,14 +277,14 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="294" y="0" width="583" height="768" key="find.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1604555987310" />
-    <state x="339" y="172" key="run.anything.popup" timestamp="1605169420836">
+    <state x="339" y="172" key="run.anything.popup" timestamp="1605346169577">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="339" y="172" key="run.anything.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1605169420836" />
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1605168033311">
+    <state x="339" y="172" key="run.anything.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1605346169577" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1605341894019">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1605168033311" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1605341894019" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -297,12 +301,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/resources/js/components/backend/Product/AddProductComponent.vue</url>
-          <line>268</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/resources/js/components/backend/Product/AddProductComponent.vue</url>
-          <line>240</line>
+          <line>241</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>

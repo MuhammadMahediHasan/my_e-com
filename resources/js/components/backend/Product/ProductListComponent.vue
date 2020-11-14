@@ -80,14 +80,20 @@
                                             <span v-for="sizes in data_value.size" v-text="' '+sizes.size.name+' |'"></span>
                                         </td>
                                         <td>{{ data_value.unit.name }}</td>
-                                        <td>{{ data_value.status == 1 ? 'Active' : 'De-active' }}</td>
+                                        <td>
+                                            <i v-if="data_value.status == 1" class="fas fa-check-circle text-success"></i>
+                                            <i v-if="data_value.status == 0" class="fas fa-check-circle text-success"></i>
+                                        </td>
                                         <td>
                                             <button class="btn btn-danger btn-sm" @click="Delete(index, data_value.id)">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <button class="btn btn-info btn-sm" @click="Edit(index, data_value.id)">
+                                            <router-link type="button" :to="{ name: 'edit-product', params:{ product_id: data_value.id }}" class="btn btn-info btn-sm">
                                                 <i class="fa fa-edit"></i>
-                                            </button>
+                                            </router-link>
+                                            <router-link type="button" :to="{ name: 'product-image', params:{ product_id: data_value.id }}" class="btn btn-dark btn-sm">
+                                                <i class="far fa-image"></i>
+                                            </router-link>
                                         </td>
                                     </tr>
                                     </tbody>

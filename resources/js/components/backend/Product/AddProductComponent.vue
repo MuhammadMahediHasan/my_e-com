@@ -165,7 +165,8 @@
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label>Description</label>
-                                                    <textarea class="form-control" v-model="form.description" placeholder="Description"></textarea>
+                                                    <vue-editor v-model="form.description" />
+<!--                                                    <textarea class="form-control" v-model="form.description" placeholder="Description"></textarea>-->
                                                     <span class="text-danger" v-if="validationErrors.description" v-text="validationErrors.description[0]"></span>
                                                 </div>
                                             </div>
@@ -191,10 +192,10 @@
 </template>
 
 <script>
-import Treeselect from '@riophae/vue-treeselect'
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import { VueEditor } from "vue2-editor";
 export default {
     name: 'product',
+    components: { VueEditor },
     data() {
         return {
             form: {

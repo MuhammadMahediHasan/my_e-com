@@ -16,7 +16,7 @@ import VueLoading from 'vuejs-loading-plugin';
 import Loading from './components/backend/Loading';
 import {routes} from './router';
 import InputTag from 'vue-input-tag';
-
+import { Cropper } from 'vue-advanced-cropper';
 
 
 Vue.use(VueRouter);

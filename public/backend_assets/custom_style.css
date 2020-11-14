@@ -61,7 +61,7 @@ body {
 .modal-content{
     border-radius: .2rem;
 }
-.table tr td button i {
+.table tr td button,a i {
     font-size : 12px;
 }
 .child_attribute {
@@ -75,3 +75,7 @@ body {
 .attribute_value .child_attribute {
     width: 20%;
 }
+.cropper {
+     height: 600px;
+     background: #DDD;
+ }

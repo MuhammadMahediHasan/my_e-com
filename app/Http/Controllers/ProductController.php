@@ -54,7 +54,6 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = new Product;
-        $product_tag = new ProductTag;
         $tags = Tag::all();
         $data->code = $this->productCode();
         $data->fill($request->all())->save();
@@ -62,6 +61,7 @@ class ProductController extends Controller
         if (count($request->tags) > 0) {
             foreach ($request->tags as $key => $value) {
                 $tag = collect($tags)->where('name', $value)->first();
+                $product_tag = new ProductTag;
                 if ($tag){
                     $product_tag->product_id = $data->id;
                     $product_tag->tag_id = $tag->id;
@@ -122,7 +122,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Product::with(['color', 'size'])->findOrFail($id);
+        $color = ProductAttribute::where('product_id', $id)->where('type', 1)->get()->pluck('color_id');
+        $size = ProductAttribute::where('product_id', $id)->where('type', 2)->get()->pluck('size_id');
+        $tags = ProductTag::where('product_id', $id)->with('tag')->get()->pluck('tag.name');
+        $return_data = $this->successResponse(['data' => $data, 'color'=>$color, 'size'=>$size, 'tags'=>$tags], 'Data Retrived!');
+        return response($return_data, 200);
     }
 
     /**
@@ -135,9 +140,53 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $data = Product::findOrFail($id);
+        $tags = Tag::all();
         $data->fill($request->all())->save();
-        $return_data = $this->successResponse($data, 'Data Edited!');
-        return response($return_data, 200);
+
+        if (count($request->tags) > 0) {
+            ProductTag::where('product_id', $id)->delete();
+            foreach ($request->tags as $key => $value) {
+                $product_tag = new ProductTag;
+                $tag = collect($tags)->where('name', $value)->first();
+                if ($tag){
+                    $product_tag->product_id = $data->id;
+                    $product_tag->tag_id = $tag->id;
+                    $product_tag->save();
+                } else {
+                    $tag = new Tag;
+                    $tag->name = strtolower($value);
+                    $tag->save();
+                    $product_tag->product_id = $data->id;
+                    $product_tag->tag_id = $tag->id;
+                    $product_tag->save();
+                }
+            }
+        }
+
+        if (count($request->size) > 0) {
+            ProductAttribute::where('product_id', $id)->where('type', 2)->delete();
+            foreach (array_unique($request->size) as $key => $value) {
+                $product_attr = new ProductAttribute;
+                $product_attr->type = 2;
+                $product_attr->product_id = $data->id;
+                $product_attr->size_id = $value;
+                $product_attr->save();
+            }
+        }
+
+        if (count($request->color) > 0) {
+            ProductAttribute::where('product_id', $id)->where('type', 1)->delete();
+            foreach (array_unique($request->color) as $key => $value) {
+                $product_attr = new ProductAttribute;
+                $product_attr->type = 1;
+                $product_attr->product_id = $data->id;
+                $product_attr->color_id = $value;
+                $product_attr->save();
+            }
+        }
+
+        $return_data = $this->successResponse($data, 'Product Edited Successfully');
+        return response()->json($return_data);
     }
 
     /**
