@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\SubCategory;
-use App\Models\ChildCategory;
+use App\Models\User;
 
-class ChildCategoryController extends Controller
+class VendorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +15,13 @@ class ChildCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Category::where(function ($data) use ($request){
-            if($request->q){
-                $data->where('name', 'like', '%' . $request->q . '%');
+        $data = User::where(function ($data) use ($request){
+            if($request->q) {
+                $data->where('name', 'like', '%' . $request->q . '%')
+                     ->orWhere('phone', 'like', '%' . $request->q . '%')
+                     ->orWhere('email', 'like', '%' . $request->q . '%');
             }
-        })->whereType(3)->with(['categories', 'sub_categories'])->paginate($request->row);
+        })->whereUserType(2)->paginate($request->row);
 
         $return_data = $this->successResponse($data, 'Data Retrived!');
         return response($return_data, 200);
@@ -33,7 +34,13 @@ class ChildCategoryController extends Controller
      */
     public function create()
     {
-        //
+        if (auth()->user()->user_type == 1)
+            $data = User::where('user_type', 2)->get();
+        else
+            $data = User::where('id', auth()->user()->id)->get();
+
+        $return_data = $this->successResponse($data, 'Vendor Data Retrived Successfully');
+        return response()->json($return_data);
     }
 
     /**
@@ -44,9 +51,15 @@ class ChildCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new Category;
+        $data = new User;
+        $validate = Validator::make($request->all(), $data->vendor_validation());
+        if ($validate->fails()){
+            $return_data = $this->errorResponse($validate->errors(), 'Validation faild');
+            return response()->json($return_data);
+        }
+        $data->user_type = 2;
         $data->fill($request->all())->save();
-        $return_data = $this->successResponse($data, 'Child Category Data Added Successfully');
+        $return_data = $this->successResponse($data, 'Vendor Data Added Successfully');
         return response()->json($return_data);
     }
 
@@ -58,9 +71,7 @@ class ChildCategoryController extends Controller
      */
     public function show($id)
     {
-        $sub_category = Category::whereSubCategoryId($id)->whereType(2)->get();
-        $return_data = $this->successResponse($sub_category, 'Data Retrived!');
-        return response($return_data, 200);
+        //
     }
 
     /**
@@ -83,7 +94,7 @@ class ChildCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Category::findOrFail($id);
+        $data = User::findOrFail($id);
         $data->fill($request->all())->save();
         $return_data = $this->successResponse($data, 'Data Edited!');
         return response($return_data, 200);
@@ -97,7 +108,7 @@ class ChildCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $data = Category::findOrFail($id)->delete();
+        $data = User::findOrFail($id)->delete();
         $return_data = $this->successResponse($data, 'Data Deleted!');
         return response($return_data, 200);
     }

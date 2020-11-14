@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\SubCategory;
-use App\Models\ChildCategory;
+use App\Models\Size;
 
-class ChildCategoryController extends Controller
+class SizeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +14,11 @@ class ChildCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Category::where(function ($data) use ($request){
+        $data = Size::where(function ($data) use ($request){
             if($request->q){
                 $data->where('name', 'like', '%' . $request->q . '%');
             }
-        })->whereType(3)->with(['categories', 'sub_categories'])->paginate($request->row);
+        })->paginate($request->row);
 
         $return_data = $this->successResponse($data, 'Data Retrived!');
         return response($return_data, 200);
@@ -33,7 +31,9 @@ class ChildCategoryController extends Controller
      */
     public function create()
     {
-        //
+        $data = Size::all();
+        $return_data = $this->successResponse($data, 'Size Data Retrived Successfully');
+        return response()->json($return_data);
     }
 
     /**
@@ -44,9 +44,9 @@ class ChildCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new Category;
+        $data = new Size;
         $data->fill($request->all())->save();
-        $return_data = $this->successResponse($data, 'Child Category Data Added Successfully');
+        $return_data = $this->successResponse($data, 'Size Data Added Successfully');
         return response()->json($return_data);
     }
 
@@ -58,9 +58,7 @@ class ChildCategoryController extends Controller
      */
     public function show($id)
     {
-        $sub_category = Category::whereSubCategoryId($id)->whereType(2)->get();
-        $return_data = $this->successResponse($sub_category, 'Data Retrived!');
-        return response($return_data, 200);
+        //
     }
 
     /**
@@ -83,7 +81,7 @@ class ChildCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Category::findOrFail($id);
+        $data = Size::findOrFail($id);
         $data->fill($request->all())->save();
         $return_data = $this->successResponse($data, 'Data Edited!');
         return response($return_data, 200);
@@ -97,7 +95,7 @@ class ChildCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $data = Category::findOrFail($id)->delete();
+        $data = Size::findOrFail($id)->delete();
         $return_data = $this->successResponse($data, 'Data Deleted!');
         return response($return_data, 200);
     }

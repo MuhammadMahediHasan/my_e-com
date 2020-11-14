@@ -16,7 +16,7 @@
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">Alexander Pierce</a>
-                    <span> <i class="icon-pin font-size-sm"></i> Santa Ana, CA</span>
+                    <span> <i class="fas fa-map-marker-alt"></i> Santa Ana, CA</span>
                 </div>
             </div>
 
@@ -36,7 +36,7 @@
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <i class="nav-icon fas fa-align-justify"></i>
                             <p>
                                 Manage Category
                                 <i class="right fas fa-angle-left"></i>
@@ -61,13 +61,62 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="pages/widgets.html" class="nav-link">
+                        <router-link to="/vendor" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Widgets
-                                <span class="right badge badge-danger">New</span>
+                                Vendor
+<!--                                <span class="right badge badge-danger">New</span>-->
+                            </p>
+                        </router-link>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-adjust"></i>
+                            <p>
+                                Manage Variation
+                                <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link to="/size" class="nav-link">
+                                    <p>Size</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/color" class="nav-link">
+                                    <p>Color</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/unit" class="nav-link">
+                                    <p>Unit</p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-cubes"></i>
+                            <p>
+                                Product
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link to="/create_product" class="nav-link">
+                                    <p>Create Product</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/product_list" class="nav-link">
+                                    <p>Product List</p>
+                                </router-link>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </nav>

@@ -15,6 +15,8 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import VueLoading from 'vuejs-loading-plugin';
 import Loading from './components/backend/Loading';
 import {routes} from './router';
+import InputTag from 'vue-input-tag';
+import { Cropper } from 'vue-advanced-cropper';
 
 
 Vue.use(VueRouter);
@@ -38,6 +40,8 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('nav-bar', require('./components/backend/layouts/NavBar.vue').default);
 Vue.component('side-bar', require('./components/backend/layouts/SideBar.vue').default);
 Vue.component('footer-sec', require('./components/backend/layouts/Footer.vue').default);
+Vue.component('input-tag', InputTag)
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

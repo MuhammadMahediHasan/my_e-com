@@ -19,6 +19,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
+        'owner_name',
+        'shop_number',
+        'user_type',
+        'address',
         'password',
     ];
 
@@ -40,4 +45,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function vendor_validation(){
+        return [
+            'name' => 'required',
+            'email' => 'required|unique:users,email',
+            'phone' => 'required|unique:users,phone',
+            'owner_name' => 'required',
+            'shop_number' => 'required',
+            'address' => 'required',
+            'password' => 'required|confirmed',
+        ];
+    }
 }

@@ -15,11 +15,11 @@ class SubCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $data = SubCategory::where(function ($data) use ($request){
+        $data = Category::where(function ($data) use ($request){
             if($request->q){
                 $data->where('name', 'like', '%' . $request->q . '%');
             }
-        })->with('category')->paginate($request->row);
+        })->whereType(2)->with('categories')->paginate($request->row);
 
         $return_data = $this->successResponse($data, 'Data Retrived!');
         return response($return_data, 200);
@@ -32,8 +32,7 @@ class SubCategoryController extends Controller
      */
     public function create()
     {
-
-        $category = Category::all();
+        $category = Category::whereType(1)->get();
         $return_data = $this->successResponse($category, 'Data Retrived!');
         return response($return_data, 200);
     }
@@ -46,9 +45,9 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new SubCategory;
+        $data = new Category;
         $data->fill($request->all())->save();
-        $return_data = $this->successResponse($data, 'Category Data Added Successfully');
+        $return_data = $this->successResponse($data, 'SubCategory Data Added Successfully');
         return response()->json($return_data);
     }
 
@@ -83,9 +82,9 @@ class SubCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = SubCategory::with('category')->findOrFail($id);
+        $data = Category::findOrFail($id);
         $data->fill($request->all())->save();
-        $return_data = $this->successResponse(SubCategory::with('category')->findOrFail($id), 'Data Edited!');
+        $return_data = $this->successResponse($data, 'Data Edited!');
         return response($return_data, 200);
     }
 

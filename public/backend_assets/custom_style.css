@@ -55,3 +55,27 @@ body {
 .page-link {
     color: #26a69a;
 }
+.form-control {
+    font-family: inherit;
+}
+.modal-content{
+    border-radius: .2rem;
+}
+.table tr td button,a i {
+    font-size : 12px;
+}
+.child_attribute {
+    display: inline-flex;
+}
+.attribute_value {
+    margin-left: 36px;
+    margin-top: 10px;
+    display: none;
+}
+.attribute_value .child_attribute {
+    width: 20%;
+}
+.cropper {
+     height: 600px;
+     background: #DDD;
+ }

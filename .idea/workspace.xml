@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f34cd46-9fc4-4319-a7f3-f4070916cae3" name="Default Changelist" comment="" />
+    <list default="true" id="4f34cd46-9fc4-4319-a7f3-f4070916cae3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductImageComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/ProductTag.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ProductTag.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/backend_assets/custom_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/backend_assets/custom_style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/Product/AddProductComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Product/AddProductComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductEditComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductEditComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductListComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,6 +45,9 @@
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -119,9 +157,13 @@
       <path value="$PROJECT_DIR$/vendor/fideloper/proxy" />
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/mockery/mockery" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-sluggable" />
     </include_path>
   </component>
   <component name="ProjectId" id="1jp3lLX4uVihGzcdhUO0lIPFdLm" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -129,13 +171,19 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../FSD/rumi-fish-feed/resources/views/raw_material/material_request.blade.php" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/database/migrations" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\others\my_e-com\resources\js\components\backend\layouts" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\others\my_e-com\database\migrations" />
+      <recent name="C:\xampp\htdocs\others\my_e-com\resources\js\components\backend" />
+      <recent name="C:\xampp\htdocs\others\my_e-com\app\Http\Controllers" />
+      <recent name="C:\xampp\htdocs\others\my_e-com\app\Models" />
     </key>
   </component>
   <component name="RunManager">
@@ -157,22 +205,54 @@
       <workItem from="1604506910143" duration="1797000" />
       <workItem from="1604550488860" duration="25033000" />
       <workItem from="1604631855529" duration="13738000" />
-      <workItem from="1604655793466" duration="3598000" />
+      <workItem from="1604655793466" duration="13898000" />
+      <workItem from="1604724195437" duration="10347000" />
+      <workItem from="1604812558925" duration="81000" />
+      <workItem from="1604816221076" duration="4912000" />
+      <workItem from="1604894596329" duration="19239000" />
+      <workItem from="1604984900608" duration="10988000" />
+      <workItem from="1605072666922" duration="5307000" />
+      <workItem from="1605090887637" duration="3188000" />
+      <workItem from="1605103641654" duration="27000" />
+      <workItem from="1605160702688" duration="1540000" />
+      <workItem from="1605164286098" duration="4667000" />
+      <workItem from="1605278063756" duration="4456000" />
+      <workItem from="1605328848457" duration="12093000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="439" y="203" key="#Notifications" timestamp="1604487487543">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="439" y="203" key="#Notifications/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1604487487543" />
-    <state x="463" y="186" key="FileChooserDialogImpl" timestamp="1604641227815">
+    <state x="413" y="130" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1605090940643">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="463" y="186" key="FileChooserDialogImpl/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1604641227815" />
+    <state x="413" y="130" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1605090940643" />
+    <state x="413" y="138" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605092759714">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="413" y="138" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1605092759714" />
+    <state x="463" y="186" key="FileChooserDialogImpl" timestamp="1605092578360">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="463" y="186" key="FileChooserDialogImpl/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1605092578360" />
     <state width="1322" height="185" key="GridCell.Tab.0.bottom" timestamp="1604488420831">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -189,17 +269,42 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state width="1322" height="185" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1604488420831" />
+    <state x="517" y="303" key="NewPhpFileDialog" timestamp="1605168781779">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="517" y="303" key="NewPhpFileDialog/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1605168781779" />
     <state x="294" y="0" width="583" height="768" key="find.popup" timestamp="1604555987310">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="294" y="0" width="583" height="768" key="find.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1604555987310" />
-    <state x="339" y="172" key="run.anything.popup" timestamp="1604570379074">
+    <state x="339" y="172" key="run.anything.popup" timestamp="1605346169577">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="339" y="172" key="run.anything.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1604570379074" />
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1604659327172">
+    <state x="339" y="172" key="run.anything.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1605346169577" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1605341894019">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1604659327172" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1605341894019" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/resources/js/components/backend/SubCategoryComponent.vue</url>
+          <line>69</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/resources/js/components/backend/VendorComponent.vue</url>
+          <line>123</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/resources/js/components/backend/Product/AddProductComponent.vue</url>
+          <line>241</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
