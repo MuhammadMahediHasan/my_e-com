@@ -94,6 +94,11 @@
                                     <p>Unit</p>
                                 </router-link>
                             </li>
+                            <li class="nav-item">
+                                <router-link to="/material" class="nav-link">
+                                    <p>Material</p>
+                                </router-link>
+                            </li>
                         </ul>
                     </li>
 
@@ -114,6 +119,16 @@
                             <li class="nav-item">
                                 <router-link to="/product_list" class="nav-link">
                                     <p>Product List</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/product_stock" class="nav-link">
+                                    <p>Stock Product</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/product_stock_summary" class="nav-link">
+                                    <p>Product Stock Summery</p>
                                 </router-link>
                             </li>
                         </ul>

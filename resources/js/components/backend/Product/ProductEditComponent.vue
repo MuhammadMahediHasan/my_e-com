@@ -11,9 +11,7 @@
                         </ol>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <div class="col-sm-6 text-right">
-                            <router-link to="/product_list" class="btn bg-gradient-info btn-flat text-right btn-sm">Product List</router-link>
-                        </div>
+                        <router-link to="/product_list" class="btn bg-gradient-info btn-flat text-right btn-sm">Product List</router-link>
                     </div>
                 </div>
             </div>
@@ -119,7 +117,18 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-lg-12">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Material </label>
+                                                    <select class="form-control" v-model="form.material_id">
+                                                        <option value="">Select</option>
+                                                        <option v-for="(data_value, index) in materialData" :value="data_value.id">
+                                                            {{ data_value.name }}</option>
+                                                    </select>
+                                                    <span class="text-danger" v-if='$vuelidation.error("form.material_id")'>{{ $vuelidation.error('form.material_id') }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Tags</label>
                                                     <input-tag v-model="form.tags" class="form-control" placeholder="Tages"></input-tag>
@@ -202,6 +211,7 @@ export default {
                 name: '',
                 unit_id : '',
                 vendor_id : '',
+                material_id : '',
                 category_id : '',
                 sub_category_id : '',
                 child_category_id : '',
@@ -219,6 +229,7 @@ export default {
             },
             validationErrors : [],
             productData: {},
+            materialData: {},
             vendorData: {},
             sizeData: {},
             colorData: {},
@@ -246,6 +257,9 @@ export default {
                 },
                 unit_id : {
                     required: true, msg : 'unit field is required!'
+                },
+                material_id : {
+                    required: true, msg : 'material field is required!'
                 },
                 vendor_id : {
                     required: true, msg : 'vendor field is required!'
@@ -338,6 +352,16 @@ export default {
             axios.get(this.baseUrl + 'unit/create')
                 .then((response) => {
                     _this.unitData = response.data.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        },
+        getMaterial : function (){
+            const _this = this;
+            axios.get(this.baseUrl + 'material/create')
+                .then((response) => {
+                    _this.materialData = response.data.data;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -437,6 +461,7 @@ export default {
         this.getSize();
         this.getColor();
         this.getUnit();
+        this.getMaterial();
         this.getData();
     }
 }

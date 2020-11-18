@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Color extends Model
+class ProductChildStock extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','color_code','description' ,'status'];
+    protected $fillable = ['product_stock_id', 'product_id', 'size_id', 'color_id', 'quantity'];
 }

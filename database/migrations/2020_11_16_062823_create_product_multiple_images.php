@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateColors extends Migration
+class CreateProductMultipleImages extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateColors extends Migration
      */
     public function up()
     {
-        Schema::create('colors', function (Blueprint $table) {
+        Schema::create('product_multiple_images', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('color_code');
-            $table->text('description')->nullable();
-            $table->tinyInteger('status')->default(1)->nullable();
+            $table->string('image');
+            $table->foreignId('product_id')->constrained('products','id')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateColors extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('colors');
+        Schema::dropIfExists('product_multiple_images');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateColors extends Migration
+class CreateProductStocks extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateColors extends Migration
      */
     public function up()
     {
-        Schema::create('colors', function (Blueprint $table) {
+        Schema::create('product_stocks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('color_code');
-            $table->text('description')->nullable();
-            $table->tinyInteger('status')->default(1)->nullable();
+            $table->decimal('expense', 12,2)->default(0);
+            $table->decimal('discount', 12,2)->default(0);
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateColors extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('colors');
+        Schema::dropIfExists('product_stocks');
     }
 }

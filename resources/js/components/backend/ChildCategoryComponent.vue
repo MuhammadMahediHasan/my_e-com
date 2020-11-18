@@ -213,7 +213,7 @@ export default {
                 if (_this.edit_child_category === false) {
                     axios.post(_this.submit_url, _this.form)
                         .then((response) => {
-                            //_this.child_categoryData.data.push(response.data.data);
+                            Vue.$toast.success('Category Created Successfully');
                             this.getData();
                         })
                         .catch((error) => {
@@ -223,9 +223,7 @@ export default {
                 if (_this.edit_child_category === true) {
                     axios.put(_this.submit_url, _this.form)
                         .then((response) => {
-                            //_this.child_categoryData.data[_this.edit_index_no] = response.data.data;
-                            //console.log( response.data.data);
-                            //console.log( _this.child_categoryData.data[_this.edit_index_no] );
+                            Vue.$toast.success('Category Update Successfully');
                             this.getData();
                         })
                         .catch((error) => {
@@ -277,7 +275,7 @@ export default {
                     axios.delete(this.baseUrl + 'child_category/' + id)
                         .then((response) => {
                             if (response.data.status == 200) {
-                                Vue.swal.fire('Deleted!', '', 'success')
+                                Vue.$toast.success('Category Deleted Successfully');
                                 _this.child_categoryData.data.splice(index,1);
                             }
                         })

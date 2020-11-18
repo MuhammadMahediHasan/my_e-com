@@ -184,6 +184,7 @@ export default {
                     axios.post(_this.submit_url, _this.form)
                         .then((response) => {
                             _this.sizeData.data.push(response.data.data);
+                            Vue.$toast.success('Size Created Successfully');
                         })
                         .catch((error) => {
                             console.log(error);
@@ -193,6 +194,7 @@ export default {
                     axios.put(_this.submit_url, _this.form)
                         .then((response) => {
                             _this.sizeData.data[_this.edit_index_no] = response.data.data;
+                            Vue.$toast.success('Size Updated Successfully');
                         })
                         .catch((error) => {
                             console.log(error);
@@ -223,7 +225,7 @@ export default {
                     axios.delete(this.baseUrl + 'size/' + id)
                         .then((response) => {
                             if (response.data.status == 200) {
-                                Vue.swal.fire('Deleted!', '', 'success')
+                                Vue.$toast.success('Size Deleted Successfully');
                                 _this.sizeData.data.splice(index,1);
                             }
                         })

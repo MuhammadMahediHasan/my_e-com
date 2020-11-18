@@ -79,3 +79,9 @@ body {
      height: 600px;
      background: #DDD;
  }
+.dot {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+}

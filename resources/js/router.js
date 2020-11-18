@@ -6,10 +6,13 @@ import VendorComponent from './components/backend/VendorComponent'
 import SizeComponent from './components/backend/SizeComponent'
 import ColorComponent from './components/backend/ColorComponent'
 import UnitComponent from './components/backend/UnitComponent'
+import MaterialComponent from './components/backend/MaterialComponent'
 import AddProductComponent from './components/backend/Product/AddProductComponent'
 import ProductListComponent from './components/backend/Product/ProductListComponent'
 import ProductEditComponent from './components/backend/Product/ProductEditComponent'
 import ProductImageComponent from './components/backend/Product/ProductImageComponent'
+import ProductStockComponent from './components/backend/Product/ProductStockComponent'
+import ProductStockSummeryComponent from './components/backend/Product/ProductStockSummeryComponent'
 
 export const routes = [
     { path: '/', component: DashBoardComponent, name:"/" },
@@ -20,8 +23,11 @@ export const routes = [
     { path: '/size', component: SizeComponent, name:"/size" },
     { path: '/color', component: ColorComponent, name:"/color" },
     { path: '/unit', component: UnitComponent, name:"/unit" },
+    { path: '/material', component: MaterialComponent, name:"/material" },
     { path: '/create_product', component: AddProductComponent, name:"/create_product" },
     { path: '/product_list', component: ProductListComponent, name:"/product_list" },
     { path:'/edit-product/:product_id', component:ProductEditComponent, name:'edit-product' },
     { path:'/product-image/:product_id', component:ProductImageComponent, name:'product-image' },
+    { path: '/product_stock', component: ProductStockComponent, name:"/product_stock" },
+    { path: '/product_stock_summary', component: ProductStockSummeryComponent, name:"/product_stock_summary" },
 ]

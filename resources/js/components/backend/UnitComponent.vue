@@ -184,6 +184,7 @@ export default {
                     axios.post(_this.submit_url, _this.form)
                         .then((response) => {
                             _this.unitData.data.push(response.data.data);
+                            Vue.$toast.success('Unit Created Successfully');
                         })
                         .catch((error) => {
                             console.log(error);
@@ -193,6 +194,7 @@ export default {
                     axios.put(_this.submit_url, _this.form)
                         .then((response) => {
                             _this.unitData.data[_this.edit_index_no] = response.data.data;
+                            Vue.$toast.success('Size Updated Successfully');
                         })
                         .catch((error) => {
                             console.log(error);
@@ -205,7 +207,6 @@ export default {
             axios.get(this.baseUrl + 'unit?q='+ _this.filter.search+'&page='+page+'&row='+_this.filter.row)
                 .then((response) => {
                     _this.unitData = response.data.data;
-                    console.log( _this.unitData );
                 })
                 .catch((error) => {
                     console.log(error);
@@ -223,7 +224,7 @@ export default {
                     axios.delete(this.baseUrl + 'unit/' + id)
                         .then((response) => {
                             if (response.data.status == 200) {
-                                Vue.swal.fire('Deleted!', '', 'success')
+                                Vue.$toast.success('Size Deleted Successfully');
                                 _this.unitData.data.splice(index,1);
                             }
                         })

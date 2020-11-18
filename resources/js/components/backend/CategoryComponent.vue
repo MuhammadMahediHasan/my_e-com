@@ -183,6 +183,7 @@
                     if (_this.edit_category === false) {
                         axios.post(_this.submit_url, _this.form)
                             .then((response) => {
+                                Vue.$toast.success('Category Added Successfully');
                                 _this.categoryData.data.push(response.data.data);
                             })
                             .catch((error) => {
@@ -192,6 +193,7 @@
                     if (_this.edit_category === true) {
                         axios.put(_this.submit_url, _this.form)
                             .then((response) => {
+                                Vue.$toast.success('Category Update Successfully');
                                 _this.categoryData.data[_this.edit_index_no] = response.data.data;
                             })
                             .catch((error) => {
@@ -205,7 +207,6 @@
                 axios.get(this.baseUrl + 'category?q='+ _this.filter.search+'&page='+page+'&row='+_this.filter.row)
                 .then((response) => {
                     _this.categoryData = response.data.data;
-                    console.log( _this.categoryData );
                 })
                 .catch((error) => {
                     console.log(error);
@@ -223,7 +224,7 @@
                         axios.delete(this.baseUrl + 'category/' + id)
                         .then((response) => {
                             if (response.data.status == 200) {
-                                Vue.swal.fire('Deleted!', '', 'success')
+                                Vue.$toast.success('Category Deleted Successfully');
                                 _this.categoryData.data.splice(index,1);
                             }
                         })
