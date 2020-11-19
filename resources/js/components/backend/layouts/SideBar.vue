@@ -133,6 +133,28 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user-shield"></i>
+                            <p>
+                                RBAC
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link to="/user" class="nav-link">
+                                    <p>User</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/role" class="nav-link">
+                                    <p>Role</p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

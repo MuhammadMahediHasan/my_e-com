@@ -3,9 +3,11 @@ import CategoryComponent from './components/backend/CategoryComponent'
 import SubCategoryComponent from './components/backend/SubCategoryComponent'
 import ChildCategoryComponent from './components/backend/ChildCategoryComponent'
 import VendorComponent from './components/backend/VendorComponent'
+import UserComponent from './components/backend/UserComponent'
 import SizeComponent from './components/backend/SizeComponent'
 import ColorComponent from './components/backend/ColorComponent'
 import UnitComponent from './components/backend/UnitComponent'
+import RoleComponent from './components/backend/RoleComponent'
 import MaterialComponent from './components/backend/MaterialComponent'
 import AddProductComponent from './components/backend/Product/AddProductComponent'
 import ProductListComponent from './components/backend/Product/ProductListComponent'
@@ -20,9 +22,11 @@ export const routes = [
     { path: '/sub_category', component: SubCategoryComponent, name:"/sub_category" },
     { path: '/child_category', component: ChildCategoryComponent, name:"/child_category" },
     { path: '/vendor', component: VendorComponent, name:"/vendor" },
+    { path: '/user', component: UserComponent, name:"/user" },
     { path: '/size', component: SizeComponent, name:"/size" },
     { path: '/color', component: ColorComponent, name:"/color" },
     { path: '/unit', component: UnitComponent, name:"/unit" },
+    { path: '/role', component: RoleComponent, name:"/role" },
     { path: '/material', component: MaterialComponent, name:"/material" },
     { path: '/create_product', component: AddProductComponent, name:"/create_product" },
     { path: '/product_list', component: ProductListComponent, name:"/product_list" },

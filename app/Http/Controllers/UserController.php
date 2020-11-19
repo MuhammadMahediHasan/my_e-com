@@ -7,7 +7,7 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Models\User;
 
-class VendorController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +22,7 @@ class VendorController extends Controller
                      ->orWhere('phone', 'like', '%' . $request->q . '%')
                      ->orWhere('email', 'like', '%' . $request->q . '%');
             }
-        })->whereUserType(2)->paginate($request->row);
+        })->whereUserType(1)->paginate($request->row);
 
         $return_data = $this->successResponse($data, 'Data Retrived!');
         return response($return_data, 200);
@@ -53,12 +53,12 @@ class VendorController extends Controller
     public function store(Request $request)
     {
         $data = new User;
-        $validate = Validator::make($request->all(), $data->vendor_validation());
+        $validate = Validator::make($request->all(), $data->user_validation());
         if ($validate->fails()){
             $return_data = $this->errorResponse($validate->errors(), 'Validation faild');
             return response()->json($return_data);
         }
-        $data->user_type = 2;
+        $data->user_type = 1;
         $data->password = Hash::make($request->password);
         $data->fill($request->all())->save();
         $return_data = $this->successResponse($data, 'Vendor Data Added Successfully');

@@ -21,6 +21,8 @@ Route::prefix('api/')->group(function () {
     Route::resource('/sub_category', App\Http\Controllers\SubCategoryController::class);
     Route::resource('/child_category', App\Http\Controllers\ChildCategoryController::class);
     Route::resource('/vendor', App\Http\Controllers\VendorController::class);
+    Route::resource('/user', App\Http\Controllers\UserController::class);
+    Route::resource('/role', App\Http\Controllers\RoleController::class);
     Route::resource('/size', App\Http\Controllers\SizeController::class);
     Route::resource('/color', App\Http\Controllers\ColorController::class);
     Route::resource('/unit', App\Http\Controllers\UnitController::class);
