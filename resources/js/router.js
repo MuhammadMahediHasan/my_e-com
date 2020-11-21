@@ -7,6 +7,8 @@ import UserComponent from './components/backend/UserComponent'
 import SizeComponent from './components/backend/SizeComponent'
 import ColorComponent from './components/backend/ColorComponent'
 import UnitComponent from './components/backend/UnitComponent'
+import GeneralSettingComponent from './components/backend/GeneralSettingComponent'
+import SliderComponent from './components/backend/SliderComponent'
 import RoleComponent from './components/backend/RoleComponent'
 import MaterialComponent from './components/backend/MaterialComponent'
 import AddProductComponent from './components/backend/Product/AddProductComponent'
@@ -26,7 +28,9 @@ export const routes = [
     { path: '/size', component: SizeComponent, name:"/size" },
     { path: '/color', component: ColorComponent, name:"/color" },
     { path: '/unit', component: UnitComponent, name:"/unit" },
+    { path: '/general_setting', component: GeneralSettingComponent, name:"/general_setting" },
     { path: '/role', component: RoleComponent, name:"/role" },
+    { path: '/slider', component: SliderComponent, name:"/slider" },
     { path: '/material', component: MaterialComponent, name:"/material" },
     { path: '/create_product', component: AddProductComponent, name:"/create_product" },
     { path: '/product_list', component: ProductListComponent, name:"/product_list" },

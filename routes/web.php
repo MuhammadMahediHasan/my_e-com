@@ -26,6 +26,8 @@ Route::prefix('api/')->group(function () {
     Route::resource('/size', App\Http\Controllers\SizeController::class);
     Route::resource('/color', App\Http\Controllers\ColorController::class);
     Route::resource('/unit', App\Http\Controllers\UnitController::class);
+    Route::resource('/slider', App\Http\Controllers\SliderController::class);
+    Route::resource('/general_setting', App\Http\Controllers\GeneralSettingController::class);
     Route::resource('/material', App\Http\Controllers\MaterialController::class);
     Route::resource('/product', App\Http\Controllers\ProductController::class);
     Route::resource('/product_stock', App\Http\Controllers\ProductStockController::class);
@@ -33,7 +35,11 @@ Route::prefix('api/')->group(function () {
     Route::post('/upload_image', [App\Http\Controllers\ProductController::class, 'uploadImage']);
     Route::get('/product_multiple_image/{id}', [App\Http\Controllers\ProductController::class, 'productMultipleImage']);
     Route::get('/product_image_delete/{image_id}/{product_id}', [App\Http\Controllers\ProductController::class, 'productImageDelete']);
+    Route::put('/product_discount/{id}', [App\Http\Controllers\ProductController::class, 'productDiscount']);
+    Route::get('/get_product_discount/{id}', [App\Http\Controllers\ProductController::class, 'getProductDiscount']);
+    Route::get('/status_product_discount/{id}', [App\Http\Controllers\ProductController::class, 'statusProductDiscount']);
+    Route::delete('/delete_product_discount/{id}', [App\Http\Controllers\ProductController::class, 'deleteProductDiscount']);
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

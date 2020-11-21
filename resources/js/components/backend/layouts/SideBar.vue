@@ -155,6 +155,28 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-cog"></i>
+                            <p>
+                                Settings
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <router-link to="/general_setting" class="nav-link">
+                                    <p>General Settings</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/slider" class="nav-link">
+                                    <p>Slider</p>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
