@@ -23,16 +23,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f34cd46-9fc4-4319-a7f3-f4070916cae3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/backend/GeneralSettingComponent.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/backend/SliderComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/backend_assets/custom_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/backend_assets/custom_style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Product/ProductListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/layouts/SideBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/layouts/SideBar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/CategoryComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Category/CategoryComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/ChildCategoryComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Category/ChildCategoryComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/ColorComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Variation/ColorComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/GeneralSettingComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/GeneralSettingComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/MaterialComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Variation/MaterialComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/SizeComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Variation/SizeComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/SubCategoryComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Category/SubCategoryComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/backend/UnitComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/backend/Variation/UnitComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,14 +176,16 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\others\my_e-com\resources\js\components\backend\Category" />
+      <recent name="C:\xampp\htdocs\others\my_e-com\resources\js\components\backend\Variation" />
+      <recent name="C:\xampp\htdocs\others\my_e-com\resources\js\components\backend\layouts" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\others\my_e-com\app\Http\Controllers" />
       <recent name="C:\xampp\htdocs\others\my_e-com\database\migrations" />
       <recent name="C:\xampp\htdocs\others\my_e-com\app\Models" />
       <recent name="C:\xampp\htdocs\others\my_e-com\resources\js\components\backend" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\others\my_e-com\resources\js\components\backend\layouts" />
     </key>
   </component>
   <component name="RunManager">
@@ -226,7 +229,9 @@
       <workItem from="1605760678197" duration="9820000" />
       <workItem from="1605797366940" duration="79000" />
       <workItem from="1605846524714" duration="8863000" />
-      <workItem from="1605934267369" duration="12264000" />
+      <workItem from="1605934267369" duration="12364000" />
+      <workItem from="1606110457296" duration="22000" />
+      <workItem from="1606195722717" duration="3094000" />
     </task>
     <servers />
   </component>
@@ -266,10 +271,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="413" y="138" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1605955435343" />
-    <state x="463" y="186" key="FileChooserDialogImpl" timestamp="1605797444653">
+    <state x="463" y="186" key="FileChooserDialogImpl" timestamp="1606110476377">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="463" y="186" key="FileChooserDialogImpl/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1605797444653" />
+    <state x="463" y="186" key="FileChooserDialogImpl/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1606110476377" />
     <state width="1322" height="185" key="GridCell.Tab.0.bottom" timestamp="1604488420831">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -302,16 +307,16 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="339" y="172" key="run.anything.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1605950120126" />
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1605955801415">
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1606197592155">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1605955801415" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768/1366.0.1366.768@0.0.1366.768" timestamp="1606197592155" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/resources/js/components/backend/SubCategoryComponent.vue</url>
+          <url>file://$PROJECT_DIR$/resources/js/components/backend/Category/SubCategoryComponent.vue</url>
           <line>69</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
