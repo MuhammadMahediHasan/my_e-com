@@ -19,7 +19,7 @@ class SubCategoryController extends Controller
             if($request->q){
                 $data->where('name', 'like', '%' . $request->q . '%');
             }
-        })->whereType(2)->with('categories')->paginate($request->row);
+        })->whereType(2)->with('category')->paginate($request->row);
 
         $return_data = $this->successResponse($data, 'Data Retrived!');
         return response($return_data, 200);

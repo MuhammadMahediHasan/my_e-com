@@ -20,7 +20,7 @@ class ChildCategoryController extends Controller
             if($request->q){
                 $data->where('name', 'like', '%' . $request->q . '%');
             }
-        })->whereType(3)->with(['categories', 'sub_categories'])->paginate($request->row);
+        })->whereType(3)->with(['category', 'sub_category'])->paginate($request->row);
 
         $return_data = $this->successResponse($data, 'Data Retrived!');
         return response($return_data, 200);

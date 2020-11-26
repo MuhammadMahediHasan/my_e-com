@@ -110,7 +110,7 @@
                                     <tr v-for="(data_value, index) in sub_categoryData.data">
                                         <td>{{ index+1 }}</td>
                                         <td>{{ data_value.name }}</td>
-                                        <td>{{ data_value.categories.name }}</td>
+                                        <td>{{ data_value.category.name }}</td>
                                         <td>{{ data_value.status == 1 ? 'Active' : 'De-active' }}</td>
                                         <td>
                                             <button class="btn btn-danger btn-sm" @click="Delete(index, data_value.id)">

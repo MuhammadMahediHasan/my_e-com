@@ -72112,11 +72112,11 @@ var render = function() {
                             _c("td", [_vm._v(_vm._s(data_value.name))]),
                             _vm._v(" "),
                             _c("td", [
-                              _vm._v(_vm._s(data_value.categories.name))
+                              _vm._v(_vm._s(data_value.category.name))
                             ]),
                             _vm._v(" "),
                             _c("td", [
-                              _vm._v(_vm._s(data_value.sub_categories.name))
+                              _vm._v(_vm._s(data_value.sub_category.name))
                             ]),
                             _vm._v(" "),
                             _c("td", [
@@ -72698,7 +72698,7 @@ var render = function() {
                             _c("td", [_vm._v(_vm._s(data_value.name))]),
                             _vm._v(" "),
                             _c("td", [
-                              _vm._v(_vm._s(data_value.categories.name))
+                              _vm._v(_vm._s(data_value.category.name))
                             ]),
                             _vm._v(" "),
                             _c("td", [

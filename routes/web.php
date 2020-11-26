@@ -43,3 +43,6 @@ Route::prefix('api/')->group(function () {
 
 Auth::routes(['register' => false]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Frontend Routes
+Route::get('/menus', [App\Http\Controllers\FrontendApiController::class, 'menus']);
