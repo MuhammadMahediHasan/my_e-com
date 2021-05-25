@@ -6,11 +6,14 @@ use App\Models\Attribute;
 use App\Models\AttributeValue;
 use App\Models\Category;
 use App\Models\ProductAttribute;
+use App\Models\ProductDiscount;
+use App\Models\ProductMultipleImage;
 use App\Models\ProductTag;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Carbon\Carbon;
+use Image;
 
 class ProductController extends Controller
 {
@@ -25,7 +28,7 @@ class ProductController extends Controller
             if ($request->q) {
                 $data->where('name', 'like', '%' . $request->q . '%');
             }
-        })->with(['category', 'sub_category', 'child_category', 'vendor', 'unit', 'color.color', 'size.size'])
+        })->with(['category', 'sub_category', 'child_category', 'vendor', 'unit', 'material', 'color.color', 'size.size'])
             ->orderBy('created_at', 'DESC')
             ->paginate($request->row);
 
@@ -62,7 +65,7 @@ class ProductController extends Controller
             foreach ($request->tags as $key => $value) {
                 $tag = collect($tags)->where('name', $value)->first();
                 $product_tag = new ProductTag;
-                if ($tag){
+                if ($tag) {
                     $product_tag->product_id = $data->id;
                     $product_tag->tag_id = $tag->id;
                     $product_tag->save();
@@ -126,7 +129,7 @@ class ProductController extends Controller
         $color = ProductAttribute::where('product_id', $id)->where('type', 1)->get()->pluck('color_id');
         $size = ProductAttribute::where('product_id', $id)->where('type', 2)->get()->pluck('size_id');
         $tags = ProductTag::where('product_id', $id)->with('tag')->get()->pluck('tag.name');
-        $return_data = $this->successResponse(['data' => $data, 'color'=>$color, 'size'=>$size, 'tags'=>$tags], 'Data Retrived!');
+        $return_data = $this->successResponse(['data' => $data, 'color' => $color, 'size' => $size, 'tags' => $tags], 'Data Retrived!');
         return response($return_data, 200);
     }
 
@@ -143,12 +146,12 @@ class ProductController extends Controller
         $tags = Tag::all();
         $data->fill($request->all())->save();
 
+        ProductTag::where('product_id', $id)->delete();
         if (count($request->tags) > 0) {
-            ProductTag::where('product_id', $id)->delete();
             foreach ($request->tags as $key => $value) {
                 $product_tag = new ProductTag;
                 $tag = collect($tags)->where('name', $value)->first();
-                if ($tag){
+                if ($tag) {
                     $product_tag->product_id = $data->id;
                     $product_tag->tag_id = $tag->id;
                     $product_tag->save();
@@ -163,8 +166,8 @@ class ProductController extends Controller
             }
         }
 
+        ProductAttribute::where('product_id', $id)->where('type', 2)->delete();
         if (count($request->size) > 0) {
-            ProductAttribute::where('product_id', $id)->where('type', 2)->delete();
             foreach (array_unique($request->size) as $key => $value) {
                 $product_attr = new ProductAttribute;
                 $product_attr->type = 2;
@@ -174,8 +177,8 @@ class ProductController extends Controller
             }
         }
 
+        ProductAttribute::where('product_id', $id)->where('type', 1)->delete();
         if (count($request->color) > 0) {
-            ProductAttribute::where('product_id', $id)->where('type', 1)->delete();
             foreach (array_unique($request->color) as $key => $value) {
                 $product_attr = new ProductAttribute;
                 $product_attr->type = 1;
@@ -199,6 +202,122 @@ class ProductController extends Controller
     {
         $data = Product::findOrFail($id)->delete();
         $return_data = $this->successResponse($data, 'Data Deleted!');
+        return response($return_data, 200);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function productMultipleImage($id)
+    {
+        $return_data = array();
+        $data = Product::where('slug', $id)->first();
+        $return_data['product'] = $data;
+        $data = ProductMultipleImage::where('product_id', $data->id)->select('id', 'image', 'product_id')->get();
+        $return_data['image'] = $this->successResponse($data, count($data) == 0 ? 'Image Not Found!' : 'Image Found');
+
+        return response($return_data, 200);
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function uploadImage(Request $request)
+    {
+        $data = Product::where('slug', $request->product_id)->first();
+        if ($request->type == 1) {
+            //Thumbnail Image
+            $upload_path = "backend_assets/image/thumbnails/" . $data->slug . ".webp";
+            $image_upload = Image::make($request->image)->resize(225, 247);
+            $image_upload->save($upload_path);
+
+            //MultipleImage
+            //$multiple_image = ProductMultipleImage::where('image', $data->slug.".webp")->first();
+            //$upload_path="backend_assets/image/multiple_image/".$data->slug.".webp";
+            //$image_upload=Image::make($request->image)->resize(720, 792);
+            //$image_upload->save($upload_path);
+            //if (!$multiple_image) {
+            //    $multiple_image = new ProductMultipleImage;
+            //    $multiple_image->image = $data->slug.".webp";
+            //    $multiple_image->product_id = $data->id;
+            //    $multiple_image->save();
+            //}
+        } else {
+            $upload_path = "backend_assets/image/multiple_image/" . $data->slug . "-" . time() . ".webp";
+            $image_upload = Image::make($request->image)->resize(720, 792);
+            $image_upload->save($upload_path);
+            $multiple_image = new ProductMultipleImage;
+            $multiple_image->image = $data->slug . "-" . time() . ".webp";
+            $multiple_image->product_id = $data->id;
+            $multiple_image->save();
+        }
+    }
+
+    /**
+     * @param $image_id
+     * @param $product_id
+     */
+    public function productImageDelete($image_id, $product_id)
+    {
+        $data = ProductMultipleImage::findOrFail($image_id);
+        if (\File::exists('backend_assets/image/multiple_image/' . $data->image)) {
+            \File::delete('backend_assets/image/multiple_image/' . $data->image);
+        }
+        $data->delete();
+        $return_data = $this->successResponse($data, 'Image Deleted!');
+        return response($return_data, 200);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     */
+    public function productDiscount(Request $request, $id)
+    {
+        $data = new ProductDiscount();
+        $data->fill($request->all())->save();
+        $return_data = $this->successResponse($data, 'Discount Added!');
+        return response($return_data, 200);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function getProductDiscount($id) {
+        $data = ProductDiscount::where('product_id', $id)->get();
+
+        $return_data = $this->successResponse($data, 'Discount List!');
+        return response($return_data, 200);
+    }
+
+    /**]
+     * @param $id
+     *
+     */
+    public function deleteProductDiscount($id) {
+        $data = ProductDiscount::findOrFail($id)->delete();
+
+        $return_data = $this->successResponse($data, 'Discount Deleted!');
+        return response($return_data, 200);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function statusProductDiscount($id)
+    {
+        $data = ProductDiscount::findOrFail($id);
+        if ($data->status == 1)
+            $data->update(['status' => 0]);
+        else
+            $data->update(['status' => 1]);
+
+        $return_data = $this->successResponse($data, 'Status changed!');
         return response($return_data, 200);
     }
 }

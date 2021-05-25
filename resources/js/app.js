@@ -16,6 +16,9 @@ import VueLoading from 'vuejs-loading-plugin';
 import Loading from './components/backend/Loading';
 import {routes} from './router';
 import InputTag from 'vue-input-tag';
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+
 import { Cropper } from 'vue-advanced-cropper';
 
 
@@ -57,6 +60,12 @@ Vue.use(VueLoading, {
     background: 'rgb(255,255,255)',
     classes: ['myclass']
 });
+
+//Toaster Notification
+Vue.use(VueToast, {
+    position: 'bottom',
+    duration: 1000,
+})
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

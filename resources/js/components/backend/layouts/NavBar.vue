@@ -115,11 +115,51 @@
                         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                        <i class="fas fa-th-large"></i>
+                <li class="nav-item dropdown">
+                    <a class="nav-link"  style="padding-top: 0px;" data-toggle="dropdown" href="#">
+                        <div class="user-panel">
+                            <div class="image">
+                                <img src="backend_assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                            </div>
+                        </div>
                     </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+<!--                        <a href="#" class="dropdown-item">-->
+<!--                            <i class="fas fa-envelope mr-2"></i> 4 new messages-->
+<!--                            <span class="float-right text-muted text-sm">3 mins</span>-->
+<!--                        </a>-->
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user mr-2"> </i>Profile
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item"  href="#" @click="logOut()">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
                 </li>
             </ul>
         </nav>
 </template>
+<script>
+    export default {
+        name : 'nav_bar',
+        data() {
+            return {
+                data : {}
+            }
+        },
+        methods : {
+            logOut : function () {
+                const _this = this;
+                axios.post('/logout', {})
+                .then((response) => {
+                    location.reload();
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+            }
+        }
+    }
+</script>

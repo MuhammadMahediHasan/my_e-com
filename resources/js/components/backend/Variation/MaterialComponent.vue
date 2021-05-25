@@ -7,11 +7,11 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Child Category</li>
+                            <li class="breadcrumb-item active">Material</li>
                         </ol>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <button class="btn bg-gradient-info btn-flat text-right btn-sm" data-toggle="modal" @click="Add()" data-target="#myModal">Add ChildCategory
+                        <button class="btn bg-gradient-info btn-flat text-right btn-sm" data-toggle="modal" @click="Add()" data-target="#myModal">Add Material
                         </button>
                     </div>
 
@@ -22,7 +22,7 @@
                             <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Create Child Category</h5>
+                                    <h5 class="modal-title">Create Material</h5>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <form @submit.prevent="submit()">
@@ -33,24 +33,13 @@
                                             <span class="text-danger" v-if='$vuelidation.error("form.name")'>{{ $vuelidation.error('form.name') }}</span>
                                         </div>
                                         <div class="form-group">
-                                            <label>Category</label>
-                                            <select class="form-control" v-model="form.sub_category_id">
-                                                <option value="">Select Category</option>
-                                                <option v-for="data_value in categoryData" :value="data_value.id">{{ data_value.name }}</option>
-                                            </select>
-                                            <span class="text-danger" v-if='$vuelidation.error("form.sub_category_id")'>{{ $vuelidation.error('form.sub_category_id') }}</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Sub Category</label>
-                                            <select class="form-control" v-model="form.child_category_id">
-                                                <option value="">Select Sub Category</option>
-                                                <option v-for="data_value in subCategoryData" :value="data_value.id">{{ data_value.name }}</option>
-                                            </select>
-                                            <span class="text-danger" v-if='$vuelidation.error("form.child_category_id")'>{{ $vuelidation.error('form.child_category_id') }}</span>
+                                            <label>Description</label>
+                                            <textarea class="form-control" v-model="form.description" placeholder="Description"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>
                                             <select class="form-control" v-model="form.status">
+                                                <option value="">Select</option>
                                                 <option value="1">Active</option>
                                                 <option value="0">De-active</option>
                                             </select>
@@ -78,7 +67,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">ChildCategory DataTable</h3>
+                                <h3 class="card-title">Material DataTable</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -105,18 +94,14 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Category</th>
-                                        <th>Sub Category</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(data_value, index) in child_categoryData.data">
+                                    <tr v-for="(data_value, index) in materialData.data">
                                         <td>{{ index+1 }}</td>
                                         <td>{{ data_value.name }}</td>
-                                        <td>{{ data_value.categories.name }}</td>
-                                        <td>{{ data_value.sub_categories.name }}</td>
                                         <td>{{ data_value.status == 1 ? 'Active' : 'De-active' }}</td>
                                         <td>
                                             <button class="btn btn-danger btn-sm" @click="Delete(index, data_value.id)">
@@ -132,14 +117,12 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Category</th>
-                                        <th>Sub Category</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                     </tfoot>
                                 </table>
-                                <pagination :data="child_categoryData" @pagination-change-page="getData()"></pagination>
+                                <pagination :data="materialData" @pagination-change-page="getData()"></pagination>
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -152,25 +135,21 @@
 
 <script>
 export default {
-    name : 'child_category',
+    name : 'material',
     data() {
         return {
             form : {
                 name : '',
-                sub_category_id : '',
-                child_category_id : '',
+                description : '',
                 status : 1,
-                type : 3,
             },
             filter : {
                 table_row : [10, 20, 30, 50],
                 search : '',
                 row : 10,
             },
-            categoryData : {},
-            subCategoryData : {},
-            child_categoryData : {},
-            edit_child_category : false,
+            materialData : {},
+            edit_material : false,
             edit_index_no : 0,
             submit_url : '',
         }
@@ -182,21 +161,12 @@ export default {
         'filter.search': function (newVal, oldVal) {
             this.getData();
         },
-        'form.sub_category_id': function (newVal, oldVal) {
-            this.getSubCategory(newVal);
-        },
     },
     vuelidation : {
         data: {
             form : {
                 name: {
                     required: true, msg : 'name field is required!'
-                },
-                sub_category_id: {
-                    required: true, msg : 'sub category name field is required!'
-                },
-                child_category_id: {
-                    required: true, msg : 'child category name field is required!'
                 },
                 status: {
                     required: true, msg : 'status field is required!'
@@ -210,23 +180,21 @@ export default {
             if (this.$vuelidation.valid('form')) {
                 this.Loader();
                 $('#myModal').modal('hide');
-                if (_this.edit_child_category === false) {
+                if (_this.edit_material === false) {
                     axios.post(_this.submit_url, _this.form)
                         .then((response) => {
-                            //_this.child_categoryData.data.push(response.data.data);
-                            this.getData();
+                            _this.materialData.data.push(response.data.data);
+                            Vue.$toast.success('Material Created Successfully');
                         })
                         .catch((error) => {
                             console.log(error);
                         })
                 }
-                if (_this.edit_child_category === true) {
+                if (_this.edit_material === true) {
                     axios.put(_this.submit_url, _this.form)
                         .then((response) => {
-                            //_this.child_categoryData.data[_this.edit_index_no] = response.data.data;
-                            //console.log( response.data.data);
-                            //console.log( _this.child_categoryData.data[_this.edit_index_no] );
-                            this.getData();
+                            _this.materialData.data[_this.edit_index_no] = response.data.data;
+                            Vue.$toast.success('Material Updated Successfully');
                         })
                         .catch((error) => {
                             console.log(error);
@@ -236,30 +204,9 @@ export default {
         },
         getData : function (page = 1){
             const _this = this;
-            axios.get(this.baseUrl + 'child_category?q='+ _this.filter.search+'&page='+page+'&row='+_this.filter.row)
+            axios.get(this.baseUrl + 'material?q='+ _this.filter.search+'&page='+page+'&row='+_this.filter.row)
                 .then((response) => {
-                    _this.child_categoryData = response.data.data;
-                    //console.log( _this.child_categoryData );
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
-        },
-        getCategory : function (){
-            const _this = this;
-            axios.get(this.baseUrl + 'sub_category/create')
-                .then((response) => {
-                    _this.categoryData = response.data.data;
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
-        },
-        getSubCategory : function (id){
-            const _this = this;
-            axios.get(this.baseUrl + 'child_category/'+id)
-                .then((response) => {
-                    _this.subCategoryData = response.data.data;
+                    _this.materialData = response.data.data;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -274,43 +221,39 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     this.Loader();
-                    axios.delete(this.baseUrl + 'child_category/' + id)
+                    axios.delete(this.baseUrl + 'material/' + id)
                         .then((response) => {
                             if (response.data.status == 200) {
-                                Vue.swal.fire('Deleted!', '', 'success')
-                                _this.child_categoryData.data.splice(index,1);
+                                Vue.$toast.success('Material Deleted Successfully');
+                                _this.materialData.data.splice(index,1);
                             }
                         })
                         .catch((error) => {
                             console.log(error);
                         })
                 } else if (result.isDenied) {
-                    Vue.swal.fire('ChildCategory are not Deleted!', '', 'info')
+                    Vue.swal.fire('Material are not Deleted!', '', 'info')
                 }
             })
 
         },
         Edit : function (index, id) {
             const _this = this;
-            _this.form = JSON.parse(JSON.stringify(_this.child_categoryData.data[index]));
-            _this.getSubCategory(_this.form.sub_category_id);
-            _this.edit_child_category = true;
+            _this.form = JSON.parse(JSON.stringify(_this.materialData.data[index]));
+            _this.edit_material = true;
             _this.edit_index_no = id;
-            _this.submit_url = this.baseUrl+ 'child_category/'+id;
+            _this.submit_url = this.baseUrl+ 'material/'+id;
             $('#myModal').modal('show');
         },
         Add : function () {
             const _this = this;
             this.resetForm();
-            _this.form.status = 1;
-            _this.form.type = 3;
-            _this.edit_child_category = false;
-            _this.submit_url = this.baseUrl + 'child_category';
+            _this.edit_material = false;
+            _this.submit_url = this.baseUrl + 'material';
         }
     },
     created() {
         this.getData();
-        this.getCategory();
     }
 }
 </script>

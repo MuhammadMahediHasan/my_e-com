@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Color extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','description' ,'status'];
+    protected $fillable = ['name','color_code','description' ,'status'];
 }

@@ -20,6 +20,7 @@ class CreateProducts extends Migration
             $table->string('slug');
             $table->foreignId('vendor_id')->constrained('users', 'id')->onDelete('cascade');
             $table->foreignId('unit_id')->constrained('units', 'id')->onDelete('cascade');
+            $table->foreignId('material_id')->constrained('materials', 'id')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories', 'id')->onDelete('cascade');
             $table->foreignId('sub_category_id')->constrained('categories', 'id')->onDelete('cascade');
             $table->foreignId('child_category_id')->nullable()->constrained('categories', 'id')->onDelete('cascade');

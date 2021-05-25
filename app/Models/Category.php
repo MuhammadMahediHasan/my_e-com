@@ -32,11 +32,19 @@ class Category extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function categories(){
+    public function category(){
         return $this->belongsTo(__Class__, 'sub_category_id', 'id');
     }
 
-    public function sub_categories(){
+    public function sub_category(){
         return $this->belongsTo(__Class__, 'child_category_id', 'id');
+    }
+
+    public function sub_categories() {
+        return $this->hasMany(__Class__, 'sub_category_id')->whereType(2);
+    }
+
+    public function child_categories() {
+        return $this->hasMany(__Class__, 'child_category_id')->whereType(3);
     }
 }

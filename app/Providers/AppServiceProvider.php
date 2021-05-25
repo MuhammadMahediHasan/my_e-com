@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton('App\Repositories\FrontendApiRepositoryInterface','App\Repositories\FrontendApiRepository');
     }
 
     /**

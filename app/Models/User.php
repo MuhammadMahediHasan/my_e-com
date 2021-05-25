@@ -57,4 +57,14 @@ class User extends Authenticatable
             'password' => 'required|confirmed',
         ];
     }
+
+    public function user_validation(){
+        return [
+            'name' => 'required',
+            'email' => 'required|unique:users,email',
+            'phone' => 'required|unique:users,phone',
+            'address' => 'required',
+            'password' => 'required|confirmed',
+        ];
+    }
 }

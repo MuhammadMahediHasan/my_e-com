@@ -33,6 +33,11 @@
                                             <span class="text-danger" v-if='$vuelidation.error("form.name")'>{{ $vuelidation.error('form.name') }}</span>
                                         </div>
                                         <div class="form-group">
+                                            <label>Color Select</label>
+                                            <input type="color" class="form-control" v-model="form.color_code" placeholder="Enter color_code">
+                                            <span class="text-danger" v-if='$vuelidation.error("form.color_code")'>{{ $vuelidation.error('form.color_code') }}</span>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Description</label>
                                             <textarea class="form-control" v-model="form.description" placeholder="Description"></textarea>
                                         </div>
@@ -94,6 +99,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
+                                        <th>Color</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -102,6 +108,9 @@
                                     <tr v-for="(data_value, index) in colorData.data">
                                         <td>{{ index+1 }}</td>
                                         <td>{{ data_value.name }}</td>
+                                        <td>
+                                            <span class="dot" :style="'background-color : '+data_value.color_code"></span>
+                                        </td>
                                         <td>{{ data_value.status == 1 ? 'Active' : 'De-active' }}</td>
                                         <td>
                                             <button class="btn btn-danger btn-sm" @click="Delete(index, data_value.id)">
@@ -117,6 +126,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
+                                        <th>Color</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -140,6 +150,7 @@ export default {
         return {
             form : {
                 name : '',
+                color_code : '',
                 description : '',
                 status : 1,
             },
@@ -168,6 +179,9 @@ export default {
                 name: {
                     required: true, msg : 'name field is required!'
                 },
+                color_code: {
+                    required: true, msg : 'color_code field is required!'
+                },
                 status: {
                     required: true, msg : 'status field is required!'
                 },
@@ -183,6 +197,7 @@ export default {
                 if (_this.edit_color === false) {
                     axios.post(_this.submit_url, _this.form)
                         .then((response) => {
+                            Vue.$toast.success('Color Created Successfully');
                             _this.colorData.data.push(response.data.data);
                         })
                         .catch((error) => {
@@ -192,6 +207,7 @@ export default {
                 if (_this.edit_color === true) {
                     axios.put(_this.submit_url, _this.form)
                         .then((response) => {
+                            Vue.$toast.success('Color Update Successfully');
                             _this.colorData.data[_this.edit_index_no] = response.data.data;
                         })
                         .catch((error) => {
@@ -223,7 +239,7 @@ export default {
                     axios.delete(this.baseUrl + 'color/' + id)
                         .then((response) => {
                             if (response.data.status == 200) {
-                                Vue.swal.fire('Deleted!', '', 'success')
+                                Vue.$toast.success('Category Deleted Successfully');
                                 _this.colorData.data.splice(index,1);
                             }
                         })

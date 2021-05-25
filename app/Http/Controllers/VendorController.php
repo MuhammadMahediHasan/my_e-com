@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Validator;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -58,6 +59,7 @@ class VendorController extends Controller
             return response()->json($return_data);
         }
         $data->user_type = 2;
+        $data->password = Hash::make($request->password);
         $data->fill($request->all())->save();
         $return_data = $this->successResponse($data, 'Vendor Data Added Successfully');
         return response()->json($return_data);

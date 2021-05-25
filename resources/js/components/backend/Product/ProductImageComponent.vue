@@ -36,26 +36,44 @@
                                         <div class="upload-example">
                                             <cropper ref="cropper"
                                                      class="upload-example-cropper"
-                                                     :stencil-props="{ aspectRatio: 10/12 }"
+                                                     :stencil-props="{ aspectRatio: 10/11 }"
                                                      :src="image" />
                                             <div class="button-wrapper">
                                                 <span class="button" @click="$refs.file.click()">
-                                                      <input
-                                                          type="file"
-                                                          ref="file"
-                                                          @change="uploadImage($event)"
-                                                          accept="image/*"
-                                                      />
-                                                      Upload image
+                                                      <input type="file" ref="file" @change="uploadImage($event)" accept="image/*"/>
+                                                      Choose image
                                                 </span>
-                                                <span class="button" @click="cropImage">Crop image</span>
+                                                <span class="button" @click="cropImage(1)"><i class="far fa-image"></i></span>
+                                                <span class="button" @click="cropImage(2)"><i class="far fa-images"></i></span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 text-right">
-                                        DD
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="row">
+                                            <div class="col-lg-12 text-center">
+                                                <h5>Thubmbail Image</h5>
+                                                <img :src="'backend_assets/image/thumbnails/'+productData.slug+'.webp'" style="padding-bottom: 5px; width : 35%">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Product Slide Image</h3>
+                                </div>
+                                <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-3" v-for="(image_value, index) in productMultipleImage"  style="padding-bottom: 15px;">
+                                                <img :src="'backend_assets/image/multiple_image/'+image_value.image" style="padding-bottom: 5px; width : 100%">
+                                                <button class="btn btn-block btn-outline-danger btn-xs" @click="Delete(index, image_value.id, image_value.product_id)"> <i class="fa fa-trash"></i> </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -83,6 +101,7 @@ export default {
             },
             image : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSZejv9yWWeQOZhd-OYDFQ8PbR_jo3968ILuA&usqp=CAU",
             productData : {},
+            productMultipleImage : {},
             edit_product : false,
             edit_index_no : 0,
             submit_url : '',
@@ -98,13 +117,15 @@ export default {
     },
     methods: {
 
-        cropImage() {
+        cropImage(type) {
+            const _this = this;
             const result = this.$refs.cropper.getResult();
-            console.log(`<img src="${result.canvas.toDataURL( "image/jpeg" )}"></img>`);
+            var base64 = result.canvas.toDataURL( "image/jpeg" );
             // const newTab = window.open();
             // newTab.document.body.innerHTML = `<img src="${result.canvas.toDataURL(
             //     "image/jpeg"
             // )}"></img>`;
+            _this.saveImage(type, base64)
         },
         uploadImage(event) {
             var input = event.target;
@@ -117,18 +138,30 @@ export default {
             }
         },
 
-        getData : function (page = 1){
+        saveImage : function (type, base64) {
             const _this = this;
-            axios.get(this.baseUrl + 'product?q='+ _this.filter.search+'&page='+page+'&row='+_this.filter.row)
+            axios.post(this.baseUrl + 'upload_image', {product_id : this.$route.params.product_id ,type : type, image : base64})
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        },
+
+        getData : function (){
+            const _this = this;
+            axios.get(this.baseUrl + 'product_multiple_image/'+this.$route.params.product_id)
                 .then((response) => {
-                    _this.productData = response.data.data;
-                    console.log( _this.productData );
+                    _this.productMultipleImage = response.data.image.data;
+                    _this.productData = response.data.product;
+                    console.log(_this.productData);
                 })
                 .catch((error) => {
                     console.log(error);
                 })
         },
-        Delete : function (index, id) {
+        Delete : function (index, image_id, product_id) {
             const _this = this;
             Vue.swal.fire({
                 title: 'Do you want to save the changes?',
@@ -137,25 +170,25 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     this.Loader();
-                    axios.delete(this.baseUrl + 'product/' + id)
+                    axios.get(this.baseUrl + 'product_image_delete/' + image_id+ '/' + product_id)
                         .then((response) => {
                             if (response.data.status == 200) {
                                 Vue.swal.fire('Deleted!', '', 'success')
-                                _this.productData.data.splice(index,1);
+                                _this.productMultipleImage.splice(index,1);
                             }
                         })
                         .catch((error) => {
                             console.log(error);
                         })
                 } else if (result.isDenied) {
-                    Vue.swal.fire('Product are not Deleted!', '', 'info')
+                    Vue.swal.fire('Product Image not Deleted!', '', 'info')
                 }
             })
 
         },
     },
     created() {
-        //this.getData();
+        this.getData();
     }
 }
 </script>

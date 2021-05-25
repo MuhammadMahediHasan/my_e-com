@@ -257,6 +257,7 @@ export default {
                             this.Loader();
                             $('#myModal').modal('hide');
                             _this.vendorData.data.push(response.data.data);
+                            Vue.$toast.success('Vendor Created Successfully');
                         }
                     })
                     .catch((error) => {
@@ -271,6 +272,7 @@ export default {
                             this.Loader();
                             $('#myModal').modal('hide');
                             _this.vendorData.data[_this.edit_index_no] = response.data.data;
+                            Vue.$toast.success('Vendor Updated Successfully');
                         } else {
                             _this.validationErrors = response.data.data;
                         }
@@ -303,7 +305,7 @@ export default {
                     axios.delete(this.baseUrl + 'vendor/' + id)
                         .then((response) => {
                             if (response.data.status == 200) {
-                                Vue.swal.fire('Deleted!', '', 'success')
+                                Vue.$toast.success('Vendor Deleted Successfully');
                                 _this.vendorData.data.splice(index, 1);
                             }
                         })
