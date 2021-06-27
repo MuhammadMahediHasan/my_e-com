@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,7 +42,7 @@ Route::prefix('api/')->group(function () {
     Route::delete('/delete_product_discount/{id}', [App\Http\Controllers\ProductController::class, 'deleteProductDiscount']);
 });
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => true]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Frontend Routes

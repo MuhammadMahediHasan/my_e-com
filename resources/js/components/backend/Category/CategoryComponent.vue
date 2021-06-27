@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn bg-gradient-primary btn-flat btn-sm" type="submit" :disabled="$vuelidation.errors()">Submit</button>
-                                        <button type="button" class="btn bg-gradient-secondary btn-flat btn-sm" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn bg-gradient-secondary btn-flat btn-sm close-modal" data-dismiss="modal">Close</button>
                                     </div>
                                 </form>
                             </div>
@@ -71,24 +71,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="dataTables_length" id="example1_length">
-                                            <label>
-                                                Show
-                                                <select v-model="filter.row" class="custom-select custom-select-sm form-control form-control-sm">
-                                                    <option v-for="data_value in filter.table_row">{{ data_value }}</option>
-                                                </select>
-                                                entries
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 text-right">
-                                        <div id="example1_filter" class="dataTables_filter">
-                                            <label>Search:<input type="search" class="form-control form-control-sm" placeholder="Search" v-model="filter.search"></label>
-                                        </div>
-                                    </div>
-                                </div>
+                                <table-search-bar :filter="filter"></table-search-bar>
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
@@ -99,7 +82,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(data_value, index) in categoryData.data">
+                                    <tr v-for="(data_value, index) in listData.data">
                                         <td>{{ index+1 }}</td>
                                         <td>{{ data_value.name }}</td>
                                         <td>{{ data_value.status == 1 ? 'Active' : 'De-active' }}</td>
@@ -134,8 +117,15 @@
 </template>
 
 <script>
+    import TableSearchBar from "../layouts/tableSearchBar";
     export default {
         name : 'category',
+        components: {TableSearchBar},
+        computed: {
+            listData() {
+                return this.$store.state.listData
+            }
+        },
         data() {
             return {
                 form : {
@@ -178,72 +168,46 @@
             submit : function () {
                 const _this = this;
                 if (this.$vuelidation.valid('form')) {
-                    this.Loader();
-                    $('#myModal').modal('hide');
                     if (_this.edit_category === false) {
-                        axios.post(_this.submit_url, _this.form)
-                            .then((response) => {
-                                Vue.$toast.success('Category Added Successfully');
-                                _this.categoryData.data.push(response.data.data);
-                            })
-                            .catch((error) => {
-                                console.log(error);
-                            })
+                        let data= {
+                            'url' : _this.submit_url,
+                            'data' : _this.form,
+                        }
+                        this.$store.dispatch('addData', data)
                     }
                     if (_this.edit_category === true) {
-                        axios.put(_this.submit_url, _this.form)
-                            .then((response) => {
-                                Vue.$toast.success('Category Update Successfully');
-                                _this.categoryData.data[_this.edit_index_no] = response.data.data;
-                            })
-                            .catch((error) => {
-                                console.log(error);
-                            })
+                        let data= {
+                            'url' : _this.submit_url,
+                            'data' : _this.form,
+                        }
+                        this.$store.dispatch('updateData', data)
                     }
+                    jQuery('#myModal').modal('hide');
                 }
             },
+
             getData : function (page = 1){
                 const _this = this;
-                axios.get(this.baseUrl + 'category?q='+ _this.filter.search+'&page='+page+'&row='+_this.filter.row)
-                .then((response) => {
-                    _this.categoryData = response.data.data;
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
+                this.$store.dispatch('getListData', this.baseUrl + 'category?q='+ _this.filter.search+'&page='+page+'&row='+_this.filter.row);
             },
-            Delete : function (index, id) {
-                const _this = this;
-                Vue.swal.fire({
-                    title: 'Do you want to save the changes?',
-                    showCancelButton: true,
-                    confirmButtonText: `Delete`,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        this.Loader();
-                        axios.delete(this.baseUrl + 'category/' + id)
-                        .then((response) => {
-                            if (response.data.status == 200) {
-                                Vue.$toast.success('Category Deleted Successfully');
-                                _this.categoryData.data.splice(index,1);
-                            }
-                        })
-                        .catch((error) => {
-                            console.log(error);
-                        })
-                    } else if (result.isDenied) {
-                        Vue.swal.fire('Category are not Deleted!', '', 'info')
-                    }
-                })
 
+            Delete : function (index, id) {
+                let data = {
+                    'url' : 'category',
+                    'id' : id,
+                    'index' : index,
+                }
+                this.$store.dispatch('deleteData', data)
             },
+
             Edit : function (index, id) {
                 const _this = this;
-                _this.form = JSON.parse(JSON.stringify(_this.categoryData.data[index]));
+                const data = _this.listData.data[index]
+                _this.form = JSON.parse(JSON.stringify(data));
                 _this.edit_category = true;
                 _this.edit_index_no = id;
                 _this.submit_url = this.baseUrl+ 'category/'+id;
-                $('#myModal').modal('show');
+                jQuery('#myModal').modal('show');
             },
             Add : function () {
                 const _this = this;

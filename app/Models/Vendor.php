@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class Vendor extends Authenticatable
 {
     use HasFactory, Notifiable;
 
@@ -20,6 +20,8 @@ class User extends Authenticatable
         'name',
         'email',
         'phone',
+        'owner_name',
+        'shop_number',
         'address',
         'password',
     ];
@@ -43,21 +45,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function vendor_validation(){
+    public function validation(){
         return [
             'name' => 'required',
-            'email' => 'required|unique:users,email',
-            'phone' => 'required|unique:users,phone',
-            'address' => 'required',
-            'password' => 'required|confirmed',
-        ];
-    }
-
-    public function user_validation(){
-        return [
-            'name' => 'required',
-            'email' => 'required|unique:users,email',
-            'phone' => 'required|unique:users,phone',
+            'email' => 'required|unique:vendors,email',
+            'phone' => 'required|unique:vendors,phone',
+            'owner_name' => 'required',
+            'shop_number' => 'required',
             'address' => 'required',
             'password' => 'required|confirmed',
         ];

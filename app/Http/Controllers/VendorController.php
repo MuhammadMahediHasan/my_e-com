@@ -2,43 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Vendor;
 
 class VendorController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        $data = User::where(function ($data) use ($request){
+        $data = Vendor::where(function ($data) use ($request){
             if($request->q) {
                 $data->where('name', 'like', '%' . $request->q . '%')
                      ->orWhere('phone', 'like', '%' . $request->q . '%')
                      ->orWhere('email', 'like', '%' . $request->q . '%');
             }
-        })->whereUserType(2)->paginate($request->row);
+        })->paginate($request->row);
 
         $return_data = $this->successResponse($data, 'Data Retrived!');
-        return response($return_data, 200);
+        return response()->json($return_data, 200);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create()
     {
-        if (auth()->user()->user_type == 1)
-            $data = User::where('user_type', 2)->get();
-        else
-            $data = User::where('id', auth()->user()->id)->get();
+        $data = Vendor::all();
 
         $return_data = $this->successResponse($data, 'Vendor Data Retrived Successfully');
         return response()->json($return_data);
@@ -48,21 +46,28 @@ class VendorController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        $data = new User;
-        $validate = Validator::make($request->all(), $data->vendor_validation());
-        if ($validate->fails()){
-            $return_data = $this->errorResponse($validate->errors(), 'Validation faild');
-            return response()->json($return_data);
+        try {
+            DB::beginTransaction();
+            $data = new Vendor;
+            $validate = Validator::make($request->all(), $data->validation());
+            if ($validate->fails()) {
+                $return_data = $this->errorResponse($validate->errors(), 'Validation failed');
+                return response()->json($return_data);
+            }
+            $request->merge(['password' => Hash::make($request->password)]);
+            $data->fill($request->all())->save();
+            $return_data = $this->successResponse($data, 'Vendor Data Added Successfully');
+
+            DB::commit();
+            return response()->json($return_data, 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $e->getMessage();
         }
-        $data->user_type = 2;
-        $data->password = Hash::make($request->password);
-        $data->fill($request->all())->save();
-        $return_data = $this->successResponse($data, 'Vendor Data Added Successfully');
-        return response()->json($return_data);
     }
 
     /**
@@ -92,25 +97,25 @@ class VendorController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
-        $data = User::findOrFail($id);
+        $data = Vendor::findOrFail($id);
         $data->fill($request->all())->save();
         $return_data = $this->successResponse($data, 'Data Edited!');
-        return response($return_data, 200);
+        return response()->json($return_data, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        $data = User::findOrFail($id)->delete();
+        $data = Vendor::findOrFail($id)->delete();
         $return_data = $this->successResponse($data, 'Data Deleted!');
         return response($return_data, 200);
     }

@@ -132,27 +132,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="dataTables_length" id="example1_length">
-                                            <label>
-                                                Show
-                                                <select v-model="filter.row"
-                                                        class="custom-select custom-select-sm form-control form-control-sm">
-                                                    <option v-for="data_value in filter.table_row">{{ data_value }}
-                                                    </option>
-                                                </select>
-                                                entries
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 text-right">
-                                        <div id="example1_filter" class="dataTables_filter">
-                                            <label>Search:<input type="search" class="form-control form-control-sm"
-                                                                 placeholder="Search" v-model="filter.search"></label>
-                                        </div>
-                                    </div>
-                                </div>
+                                <table-search-bar :filter="filter"></table-search-bar>
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
@@ -171,10 +151,10 @@
                                         <td>{{ index+1 }}</td>
                                         <td>{{ data_value.name }}</td>
                                         <td>{{ data_value.owner_name }}</td>
-                                        <td>{{ data_value.shop_number }}</td></td>
-                                        <td>{{ data_value.phone }}</td></td>
-                                        <td>{{ data_value.email }}</td></td>
-                                        <td>{{ data_value.address }}</td></td>
+                                        <td>{{ data_value.shop_number }}</td>
+                                        <td>{{ data_value.phone }}</td>
+                                        <td>{{ data_value.email }}</td>
+                                        <td>{{ data_value.address }}</td>
                                         <td>
                                             <button class="btn btn-danger btn-sm" @click="Delete(index, data_value.id)">
                                                 <i class="fa fa-trash"></i>
@@ -210,8 +190,10 @@
 </template>
 
 <script>
+import TableSearchBar from "./layouts/tableSearchBar";
 export default {
     name: 'vendor',
+    components: {TableSearchBar},
     data() {
         return {
             form: {
@@ -249,6 +231,7 @@ export default {
             const _this = this;
 
             if (_this.edit_vendor === false) {
+                console.log(_this.form);
                 axios.post(_this.submit_url, _this.form)
                     .then((response) => {
                         if (response.data.status == 201){

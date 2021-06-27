@@ -12,7 +12,9 @@
                     <a href="#" class="nav-link">Contact</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link"><span class="badge bg-success">Online</span></a>
+                    <a href="#" class="nav-link"><span :class="online == true ? 'badge bg-success' : 'badge bg-warning'">
+                        {{ online === true ? 'online' : 'offline' }}
+                    </span></a>
                 </li>
             </ul>
 
@@ -146,7 +148,10 @@
         name : 'nav_bar',
         data() {
             return {
-                data : {}
+                data : {},
+                online : window.navigator.onLine === true
+                        ? this.online = true
+                        : this.online = false
             }
         },
         methods : {
@@ -160,6 +165,6 @@
                     console.log(error);
                 })
             }
-        }
+        },
     }
 </script>

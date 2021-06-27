@@ -15,6 +15,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import VueLoading from 'vuejs-loading-plugin';
 import Loading from './components/backend/Loading';
 import {routes} from './router';
+import {store} from './store';
 import InputTag from 'vue-input-tag';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
@@ -103,5 +104,6 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    store
 });

@@ -71,24 +71,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="dataTables_length" id="example1_length">
-                                            <label>
-                                                Show
-                                                <select v-model="filter.row" class="custom-select custom-select-sm form-control form-control-sm">
-                                                    <option v-for="data_value in filter.table_row">{{ data_value }}</option>
-                                                </select>
-                                                entries
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 text-right">
-                                        <div id="example1_filter" class="dataTables_filter">
-                                            <label>Search:<input type="search" class="form-control form-control-sm" placeholder="Search" v-model="filter.search"></label>
-                                        </div>
-                                    </div>
-                                </div>
+                                <table-search-bar :filter="filter"></table-search-bar>
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
@@ -134,8 +117,10 @@
 </template>
 
 <script>
+import TableSearchBar from "../layouts/tableSearchBar";
 export default {
     name : 'material',
+    components: {TableSearchBar},
     data() {
         return {
             form : {

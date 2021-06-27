@@ -9,7 +9,7 @@ trait HelperTrait{
      * @param $msg
      * @return array
      */
-    public function successResponse($data, $msg) {
+    public function successResponse($data, $msg) : array {
         return [
             'status' => 200,
             'msg' => $msg,
@@ -22,7 +22,7 @@ trait HelperTrait{
      * @param $msg
      * @return array
      */
-    public function errorResponse($data, $msg) {
+    public function errorResponse($data, $msg) : array {
         return [
             'status' => '201',
             'msg' => $msg,
@@ -31,35 +31,33 @@ trait HelperTrait{
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function productCode() {
+    public function productCode() : int {
         $make_order_num = Product::latest()->first();
         $year = date('y');
         $month = date('m');
 
-        if (strlen(date('d')) == 1)
-            $date = '0'.date('d');
-        else
-            $date = date('d');
+        strlen( date('d') ) == 1
+            ? $date = '0'.date('d')
+            : $date = date('d');
 
-        if (!empty($make_order_num)) {
-            $code_no = (int) $make_order_num->id + 1;
+        $code_no = (int) (isset($make_order_num) ? $make_order_num->id : 0) + 1;
 
-            if (strlen($code_no) == 1)
+        switch ( strlen($code_no) ) {
+            case 1 :
+                $code_no = '000'.$code_no;
+                break;
+            case 2 :
                 $code_no = '00'.$code_no;
-
-            if (strlen($code_no) == 2)
-                $code_no = '00'.$code_no;
-
-            if (strlen($code_no) == 3)
+                break;
+            case 3 :
                 $code_no = '0'.$code_no;
+                break;
+            default :
+                $code_no = 0001;
         }
-        else
-            $code_no = 0001;
 
-        $make_product_num_code = $year . $month . $date . $code_no;
-
-        return $make_product_num_code;
+        return $year . $month . $date . $code_no;
     }
 }
